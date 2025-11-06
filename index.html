@@ -1,66 +1,76 @@
-import { motion } from "framer-motion";
-import React from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LCNP – Lakewood Commons Night Patrol</title>
 
 
-export default function LCNP() {
-return (
-<div className="relative h-screen w-full overflow-hidden bg-black text-white font-sans">
-{/* Fog Layer */}
-<div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen bg-[url('https://i.ibb.co/V2KfRhF/fog-texture.png')] bg-cover animate-pulse" />
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
 
 
-{/* Title */}
-<div className="absolute top-20 w-full text-center z-20">
-<motion.h1
-initial={{ opacity: 0, y: -40 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 1.2 }}
-className="text-6xl font-bold tracking-widest drop-shadow-xl"
->
-LCNP
-</motion.h1>
-<motion.div
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-transition={{ delay: 1 }}
-className="text-lg opacity-90 drop-shadow-md mt-2"
->
-Lakewood Commons Night Patrol
-</motion.div>
+<!-- Framer Motion for Web (motion library) -->
+<script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
+
+
+<style>
+/* Custom keyframes for fog + ping */
+@keyframes fogMove {
+0% { transform: translateX(0); }
+100% { transform: translateX(-600px); }
+}
+.fog-layer {
+animation: fogMove 60s linear infinite;
+}
+</style>
+</head>
+<body class="bg-black text-white overflow-hidden">
+
+
+<!-- Container -->
+<div class="relative h-screen w-full overflow-hidden">
+
+
+<!-- Fog Layer -->
+<div class="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen fog-layer"
+style="background-image: url('https://i.ibb.co/V2KfRhF/fog-texture.png'); background-size: cover;">
 </div>
 
 
-{/* Patrol Lights */}
-<div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
-<div className="absolute left-1/3 top-40 w-40 h-40 rounded-full bg-red-600 opacity-10 animate-ping" />
-<div className="absolute right-1/3 top-40 w-40 h-40 rounded-full bg-blue-600 opacity-10 animate-ping" />
+<!-- Title -->
+<div class="absolute top-20 w-full text-center z-20">
+<h1 class="text-6xl font-bold tracking-widest drop-shadow-xl">LCNP</h1>
+<div class="text-lg opacity-90 drop-shadow-md mt-2">Lakewood Commons Night Patrol</div>
 </div>
 
 
-{/* Tahoe Image */}
-<motion.img
+<!-- Flashing Patrol Lights -->
+<div class="absolute inset-0 z-10 pointer-events-none">
+<div class="absolute left-1/3 top-40 w-40 h-40 rounded-full bg-red-600 opacity-10 animate-ping"></div>
+<div class="absolute right-1/3 top-40 w-40 h-40 rounded-full bg-blue-600 opacity-10 animate-ping"></div>
+</div>
+
+
+<!-- Tahoe Image -->
+<img
 src="https://i.ibb.co/8r9yrH5/black-tahoe-night.png"
 alt="LCNP Tahoe"
-initial={{ opacity: 0, y: 80 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 1.5 }}
-className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] z-10"
+class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] z-10 opacity-90"
 />
 
 
-{/* Badge */}
-<motion.div
-initial={{ scale: 0.5, opacity: 0 }}
-animate={{ scale: 1, opacity: 1 }}
-transition={{ delay: 0.8, duration: 1 }}
-className="absolute bottom-1/3 left-1/2 -translate-x-1/2 px-10 py-5 text-3xl font-bold tracking-widest bg-black/50 border border-white/40 rounded-lg backdrop-blur-md drop-shadow-2xl z-30"
->
+<!-- Badge -->
+<div class="absolute bottom-1/3 left-1/2 -translate-x-1/2 px-10 py-5 text-3xl font-bold tracking-widest
+bg-black/50 border border-white/40 rounded-lg backdrop-blur-md drop-shadow-2xl z-30">
 LCNP
-</motion.div>
-
-
-{/* Dark Gradient Overlay */}
-<div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/90 z-0" />
 </div>
-);
-}
+
+
+<!-- Dark Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/90 z-0"></div>
+
+
+</div>
+</body>
+</html>

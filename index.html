@@ -1,74 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LCNP – Lakewood Commons Night Patrol</title>
+<label class="block text-sm opacity-80 mb-1">Phone</label>
+<input required name="phone" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15" />
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm opacity-80 mb-1">Location / Address</label>
+<input required name="address" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15" />
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm opacity-80 mb-1">Description</label>
+<textarea required name="description" rows="5" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15"></textarea>
+</div>
+<div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+<label class="flex items-center gap-2"><input type="checkbox" name="urgent" class="accent-white"/>Urgent</label>
+<label class="flex items-center gap-2"><input type="checkbox" name="vehicleInvolved" class="accent-white"/>Vehicle involved</label>
+<label class="flex items-center gap-2"><input type="checkbox" name="policeNotified" class="accent-white"/>Police notified</label>
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm opacity-80 mb-1">Attach Photo (optional)</label>
+<input type="file" accept="image/*" name="photo" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15" />
+</div>
+<div class="md:col-span-2 flex gap-4">
+<button class="px-6 py-3 rounded-lg border border-white/30 bg-white/5 hover:bg-white/10" type="submit">Submit Report</button>
+<button class="px-6 py-3 rounded-lg border border-white/20" type="button" id="downloadReport">Download Copy</button>
+</div>
+<p class="md:col-span-2 text-xs opacity-60">Submitting saves a copy to your device and opens an email with the details. For emergencies call 911 first.</p>
+</form>
+</div>
+</section>
+</main>
 
 
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-
+<!-- ===== Extra Styles for Cards & Badge & Reveal ===== -->
 <style>
-@keyframes fogMove {
-0% { transform: translateX(0); }
-100% { transform: translateX(-800px); }
-}
-.fog-layer {
-animation: fogMove 60s linear infinite;
-}
+.card{position:relative; padding:1px; border-radius:16px; background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,.05));}
+.card-inner{border-radius:15px; padding:20px; background:rgba(255,255,255,0.03); backdrop-filter:blur(6px); min-height:140px; display:flex; flex-direction:column; gap:8px;}
+.badge-3d .badge-face{transform-style:preserve-3d; transition:transform .6s;}
+.badge-3d:hover .badge-face{transform:rotateY(15deg) rotateX(6deg);}
+.badge-3d .shine{position:absolute; inset:-2px; border-radius:inherit; background:linear-gradient(120deg,rgba(255,255,255,.35),transparent 40%); filter:blur(12px); mix-blend:screen; opacity:.6; animation:glow 4s ease-in-out infinite;}
+/* Reveal on scroll */
+.reveal{opacity:0; transform:translateY(24px); transition:all .8s ease;}
+.reveal.in-view{opacity:1; transform:none;}
 </style>
-</head>
 
 
-<body class="bg-black text-white overflow-hidden">
+<!-- ===== Ambient Audio (WebAudio, no external files) ===== -->
+<script>
+let ctx, master, cricketInterval, noise;
+function initAudio(){
+if(ctx) return; ctx=new (window.AudioContext||window.webkitAudioContext)();
+master=ctx.createGain(); master.gain.value=0.25; master.connect(ctx.destination);
+// Wind/noise
+const bufferSize = 2 * ctx.sampleRate;
+const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+const output = noiseBuffer.getChannelData(0);
+for (let i = 0; i < bufferSize; i++) { output[i] = (Math.random()*2-1) * 0.35; }
+noise = ctx.createBufferSource(); noise.buffer = noiseBuffer; noise.loop = true;
+const noiseFilter = ctx.createBiquadFilter(); noiseFilter.type='lowpass'; noiseFilter.frequency.value=1200;
+const noiseGain = ctx.createGain(); noiseGain.gain.value=0.15;
+noise.connect(noiseFilter).connect(noiseGain).connect(master); noise.start();
+// Low hum
+const osc = ctx.createOscillator(); osc.type='sine'; osc.frequency.value=48;
+const oscGain=ctx.createGain(); oscGain.gain.value=0.05; osc.connect(oscGain).connect(master); osc.start();
+// Crickets
+cricketInterval=setInterval(()=>{ const o=ctx.createOscillator(); o.type='square'; o.frequency.value=3600; const g=ctx.createGain(); g.gain.setValueAtTime(0,ctx.currentTime); g.gain.linearRampToValueAtTime(0.03,ctx.currentTime+0.01); g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.3); o.connect(g).connect(master); o.start(); o.stop(ctx.currentTime+0.31); }, 1800);
+}
+function stopAudio(){ if(!ctx) return; ctx.suspend(); }
+const btn=document.getElementById('audioToggle');
+btn.addEventListener('click', async ()=>{ if(!ctx || ctx.state==='suspended'){ initAudio(); await ctx.resume(); btn.textContent='🔇 Ambient'; } else { await ctx.suspend(); btn.textContent='🔊 Ambient'; } });
+</script>
 
 
-<div class="relative h-screen w-full overflow-hidden">
-
-
-<!-- Fog -->
-<div class="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen fog-layer"
-style="background-image: url('https://pngimg.com/uploads/fog/fog_PNG6.png'); background-size: cover;">
-</div>
-
-
-<!-- Title -->
-<div class="absolute top-20 w-full text-center z-20">
-<h1 class="text-6xl font-bold tracking-widest drop-shadow-xl">LCNP</h1>
-<div class="text-lg opacity-90 drop-shadow-md mt-2">Lakewood Commons Night Patrol</div>
-</div>
-
-
-<!-- Flashing lights -->
-<div class="absolute inset-0 z-10 pointer-events-none">
-<div class="absolute left-1/3 top-40 w-40 h-40 rounded-full bg-red-600 opacity-10 animate-ping"></div>
-<div class="absolute right-1/3 top-40 w-40 h-40 rounded-full bg-blue-600 opacity-10 animate-ping"></div>
-</div>
-
-
-<!-- Tahoe image -->
-<img
-src="https://cdn.pixabay.com/photo/2016/11/29/01/08/police-1864900_1280.png"
-alt="LCNP Tahoe"
-class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70%] drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] z-10 opacity-95"
-/>
-
-
-<!-- Badge -->
-<div class="absolute bottom-1/3 left-1/2 -translate-x-1/2 px-10 py-5 text-3xl font-bold tracking-widest
-bg-black/60 border border-white/40 rounded-lg backdrop-blur-md drop-shadow-2xl z-30">
-LCNP
-</div>
-
-
-<!-- Dark gradient -->
-<div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/90 z-0"></div>
-
-
-</div>
+<!-- ===== Scroll Reveal ===== -->
+<script>
+const io=new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target);} });},{ threshold:0.15 });
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
 
 
 </body>
-</html>
+</html>".replace("REPLACE_BASE64

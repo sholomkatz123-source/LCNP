@@ -17,6 +17,46 @@
             color: #fff;
             overflow-x: hidden;
             position: relative;
+            padding-top: 60px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 2px solid rgba(0, 255, 0, 0.3);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 2rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            border-color: #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            background: rgba(0, 255, 0, 0.05);
         }
 
         /* Dark fog effect */
@@ -653,22 +693,32 @@
     </style>
 </head>
 <body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a class="nav-link" href="#home">Home</a>
+            <a class="nav-link" href="#mission">Mission</a>
+            <a class="nav-link" href="#team">Team</a>
+            <a class="nav-link" href="#fleet">Fleet</a>
+            <a class="nav-link" href="#report">Report</a>
+        </div>
+    </nav>
+
     <div class="alert-container" id="alertContainer"></div>
     <div class="scanlines"></div>
     <div class="vignette"></div>
     <div class="grid-bg"></div>
 
-    <header>
+    <header id="home">
         <div class="logo">LCNP</div>
         <div class="tagline">Lakewood Commons Night Patrol</div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="mission">
         <h2>Eyes in the Darkness</h2>
         <p class="hero-text">
             When the streets fall silent and shadows grow long, we emerge. A dedicated force of vigilant protectors, we patrol Lakewood Commons through the darkest hours. Every suspicious movement, every unknown face, every potential threat—we're watching. The night belongs to us.
         </p>
-        <button class="cta-button" onclick="alert('Join our patrol! Contact us to learn more about becoming part of LCNP.')">ENLIST NOW</button>
+        <button class="cta-button" onclick="document.getElementById('report').scrollIntoView({behavior: 'smooth'})">ENLIST NOW</button>
     </section>
 
     <section class="features">
@@ -689,7 +739,7 @@
         </div>
     </section>
 
-    <section class="team-section">
+    <section class="team-section" id="team">
         <h2 class="section-title">Team Members</h2>
         <div class="team-grid">
             <div class="team-card">
@@ -775,7 +825,7 @@
         </div>
     </section>
 
-    <section class="vehicles-section">
+    <section class="vehicles-section" id="fleet">
         <h2 class="section-title">Fleet</h2>
         <div class="vehicles-grid">
             <div class="vehicle-card">
@@ -817,7 +867,7 @@
         </div>
     </section>
 
-    <section class="report-section">
+    <section class="report-section" id="report">
         <div class="report-form">
             <h2>Report Suspicious Activity</h2>
             <div class="form-group">
@@ -861,6 +911,18 @@
     </footer>
 
     <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
         // Alert system
         const alerts = [
             { title: "SUSPICIOUS VEHICLE", message: "Black sedan circling Oak Street. License plate unclear. Proceed with caution.", icon: "■" },

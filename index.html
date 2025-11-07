@@ -17,7 +17,7 @@
             color: #fff;
             overflow-x: hidden;
             position: relative;
-            padding-top: 60px;
+            padding-top: 70px;
         }
 
         /* Navigation Bar */
@@ -26,25 +26,33 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.98);
             border-bottom: 2px solid rgba(127, 255, 224, 0.3);
             z-index: 1000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
 
         .nav-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
-            gap: 2rem;
-              position: relative;
+            padding: 1rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00f5d4;
+            text-shadow: 0 0 20px #00f5d4;
+            letter-spacing: 0.3rem;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-toggle {
@@ -62,16 +70,9 @@
             transition: all 0.3s ease;
         }
 
-        .nav-toggle-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.12rem;
-        }
-
-        .nav-toggle:hover,
-        .nav-toggle:focus {
+        .nav-toggle:hover {
             border-color: #00f5d4;
             box-shadow: 0 0 15px rgba(127, 255, 224, 0.25);
-            outline: none;
         }
 
         .nav-toggle-icon {
@@ -80,7 +81,7 @@
             width: 20px;
             height: 2px;
             background: #00f5d4;
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .nav-toggle-icon::before,
@@ -91,7 +92,7 @@
             width: 100%;
             height: 2px;
             background: #00f5d4;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .nav-toggle-icon::before {
@@ -117,22 +118,125 @@
         .nav-link {
             color: #00f5d4;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.15rem;
-            padding: 0.5rem 1rem;
+            letter-spacing: 0.12rem;
+            padding: 0.6rem 1.2rem;
             border: 1px solid transparent;
             transition: all 0.3s;
             cursor: pointer;
+            position: relative;
         }
 
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             border-color: #00f5d4;
             box-shadow: 0 0 15px rgba(127, 255, 224, 0.3);
             background: rgba(127, 255, 224, 0.05);
         }
 
-        /* Dark fog effect */
+        /* Alert System - Smaller & Sleeker */
+        .alert-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 999;
+            max-width: 320px;
+        }
+
+        .alert {
+            background: rgba(0, 0, 0, 0.95);
+            border-left: 3px solid #ff0000;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 
+                0 4px 20px rgba(255, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 0, 0, 0.05);
+            animation: slideInRight 0.4s ease-out, alertPulse 2s infinite;
+            backdrop-filter: blur(10px);
+            font-family: 'Courier New', monospace;
+            border-radius: 4px;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes alertPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 4px 20px rgba(255, 0, 0, 0.3),
+                    inset 0 0 15px rgba(255, 0, 0, 0.05);
+            }
+            50% { 
+                box-shadow: 
+                    0 4px 30px rgba(255, 0, 0, 0.5),
+                    inset 0 0 20px rgba(255, 0, 0, 0.1);
+            }
+        }
+
+        .alert-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.4rem;
+            gap: 0.5rem;
+        }
+
+        .alert-icon {
+            font-size: 0.9rem;
+            color: #ff0000;
+            animation: blink 1s infinite;
+        }
+
+        .alert-type {
+            font-size: 0.65rem;
+            color: #ff0000;
+            letter-spacing: 0.08rem;
+            text-transform: uppercase;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.3; }
+        }
+
+        .alert-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #00f5d4;
+            margin-bottom: 0.3rem;
+            text-shadow: 0 0 8px #00f5d4;
+            letter-spacing: 0.05rem;
+        }
+
+        .alert-message {
+            color: #cccccc;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .alert-time {
+            font-size: 0.65rem;
+            color: #666;
+            margin-top: 0.4rem;
+            text-align: right;
+            letter-spacing: 0.05rem;
+        }
+
+        /* Background Effects */
         body::before {
             content: '';
             position: fixed;
@@ -141,17 +245,16 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(ellipse at 20% 30%, rgba(30, 0, 50, 0.4) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(0, 30, 50, 0.4) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(20, 20, 40, 0.3) 0%, transparent 60%);
+                radial-gradient(ellipse at 20% 30%, rgba(30, 0, 50, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(0, 30, 50, 0.3) 0%, transparent 50%);
             pointer-events: none;
             z-index: 1;
             animation: fogMove 20s ease-in-out infinite;
         }
 
         @keyframes fogMove {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 0.9; }
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
         }
 
         .scanlines {
@@ -162,7 +265,7 @@
             height: 100%;
             background: repeating-linear-gradient(
                 0deg,
-                rgba(127, 255, 224, 0.03) 0px,
+                rgba(127, 255, 224, 0.02) 0px,
                 transparent 2px,
                 transparent 4px
             );
@@ -182,179 +285,150 @@
             left: 0;
             width: 100%;
             height: 100%;
-            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
+            box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.8);
             pointer-events: none;
             z-index: 3;
         }
 
-        .grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(127, 255, 224, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(127, 255, 224, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        header {
+        /* Page Container */
+        .page {
+            display: none;
             position: relative;
             z-index: 10;
-            padding: 4rem 2rem;
+            min-height: calc(100vh - 70px);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Home Page */
+        .hero-header {
+            position: relative;
+            padding: 6rem 2rem 4rem;
             text-align: center;
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
             border-bottom: 1px solid rgba(127, 255, 224, 0.2);
-            min-height: 75vh;
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
         }
 
-        header::before {
+        .hero-header::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('./assets/hero-banner.png') center bottom;
-            background-size: cover;
-            background-position: center 25%;
-            opacity: 0.85;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(127,255,224,0.1)"/></svg>');
+            opacity: 0.3;
             z-index: -1;
         }
 
         .logo {
-            font-size: 8rem;
+            font-size: 6rem;
             font-weight: bold;
             color: #ffffff;
             text-shadow: 
                 0 0 30px rgba(0, 191, 255, 0.8),
                 0 0 60px rgba(0, 191, 255, 0.6),
-                0 0 90px rgba(0, 191, 255, 0.4),
                 4px 4px 8px rgba(0,0,0,0.9);
-            letter-spacing: 2rem;
+            letter-spacing: 1.5rem;
             animation: flicker 3s infinite;
-            font-family: 'Courier New', monospace;
-            position: relative;
-            z-index: 2;
         }
 
         @keyframes flicker {
-            0%, 100% { 
-                opacity: 1;
-                text-shadow: 
-                    0 0 30px rgba(0, 191, 255, 0.8),
-                    0 0 60px rgba(0, 191, 255, 0.6),
-                    0 0 90px rgba(0, 191, 255, 0.4),
-                    4px 4px 8px rgba(0,0,0,0.9);
-            }
-            5%, 15%, 25%, 35% { 
-                opacity: 0.8;
-                text-shadow: 
-                    0 0 15px rgba(0, 191, 255, 0.6),
-                    0 0 30px rgba(0, 191, 255, 0.4),
-                    4px 4px 8px rgba(0,0,0,0.9);
-            }
-            10%, 20%, 30% { 
-                opacity: 1;
-            }
+            0%, 100% { opacity: 1; }
+            5%, 15%, 25% { opacity: 0.85; }
+            10%, 20% { opacity: 1; }
         }
 
         .tagline {
-            font-size: 2rem;
+            font-size: 1.6rem;
             margin-top: 1.5rem;
             color: #ffffff;
-            text-shadow: 
-                0 0 20px rgba(0, 191, 255, 0.6),
-                3px 3px 6px rgba(0,0,0,0.9);
-            letter-spacing: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 191, 255, 0.6);
+            letter-spacing: 0.4rem;
             text-transform: uppercase;
-            position: relative;
-            z-index: 2;
         }
 
-        .hero {
-            position: relative;
-            z-index: 10;
-            padding: 5rem 2rem;
-            text-align: center;
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .hero-content {
+            max-width: 900px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
         }
 
-        .hero h2 {
-            font-size: 3.5rem;
-            margin-bottom: 2rem;
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-            letter-spacing: 0.2rem;
-            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            letter-spacing: 0.15rem;
         }
 
-        .hero-text {
-            font-size: 1.2rem;
-            max-width: 800px;
-            line-height: 2;
-            margin-bottom: 3rem;
+        .hero-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
             color: #a0a0a0;
-            text-shadow: 0 0 5px rgba(127, 255, 224, 0.3);
+            margin-bottom: 2rem;
         }
 
         .cta-button {
-            padding: 1.5rem 3rem;
-            font-size: 1.3rem;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
             background: transparent;
             border: 2px solid #00f5d4;
             color: #00f5d4;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 
-                0 0 20px rgba(127, 255, 224, 0.3),
-                inset 0 0 20px rgba(127, 255, 224, 0.1);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 0 20px rgba(127, 255, 224, 0.3);
             text-transform: uppercase;
-            letter-spacing: 0.2rem;
+            letter-spacing: 0.15rem;
             font-family: 'Courier New', monospace;
         }
 
         .cta-button:hover {
             background: rgba(127, 255, 224, 0.1);
-            box-shadow: 
-                0 0 40px rgba(127, 255, 224, 0.6),
-                inset 0 0 40px rgba(127, 255, 224, 0.2);
-            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(127, 255, 224, 0.5);
+            transform: translateY(-2px);
         }
 
-        .features {
-            position: relative;
-            z-index: 10;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 2rem;
+        /* Content Sections */
+        .content-section {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #00f5d4;
+            text-shadow: 0 0 20px #00f5d4;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
 
         .feature-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(127, 255, 224, 0.3);
-            padding: 2.5rem;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid rgba(127, 255, 224, 0.25);
+            padding: 2rem;
             text-align: center;
             transition: all 0.3s;
             backdrop-filter: blur(10px);
             position: relative;
+            border-radius: 4px;
         }
 
         .feature-card::before {
@@ -371,9 +445,8 @@
 
         .feature-card:hover {
             border-color: #00f5d4;
-            box-shadow: 
-                0 0 30px rgba(127, 255, 224, 0.3),
-                inset 0 0 30px rgba(127, 255, 224, 0.05);
+            box-shadow: 0 0 25px rgba(127, 255, 224, 0.3);
+            transform: translateY(-5px);
         }
 
         .feature-card:hover::before {
@@ -381,45 +454,247 @@
         }
 
         .feature-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+            font-size: 3rem;
+            margin-bottom: 1.2rem;
             color: #00f5d4;
-            text-shadow: 0 0 20px #00f5d4;
+            text-shadow: 0 0 15px #00f5d4;
         }
 
         .feature-card h3 {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             margin-bottom: 1rem;
             color: #00f5d4;
             text-transform: uppercase;
-            letter-spacing: 0.15rem;
+            letter-spacing: 0.1rem;
         }
 
         .feature-card p {
             color: #a0a0a0;
-            line-height: 1.8;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
-         @media (max-width: 768px) {
-            body {
-                padding-top: 70px;
-            }
+        /* Team & Fleet Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
 
+        .team-card, .vehicle-card {
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid rgba(127, 255, 224, 0.25);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        .team-card:hover, .vehicle-card:hover {
+            border-color: #00f5d4;
+            box-shadow: 0 0 25px rgba(127, 255, 224, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 2px solid #00f5d4;
+            box-shadow: 0 0 15px rgba(127, 255, 224, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(127, 255, 224, 0.05);
+            overflow: hidden;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-avatar svg {
+            width: 60%;
+            height: 60%;
+            fill: #00f5d4;
+        }
+
+        .team-name, .vehicle-name {
+            font-size: 1.3rem;
+            color: #00f5d4;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08rem;
+        }
+
+        .team-role, .vehicle-type {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-callsign, .vehicle-status {
+            color: #00ffff;
+            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .vehicle-image {
+            width: 100%;
+            height: 180px;
+            background: rgba(127, 255, 224, 0.05);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(127, 255, 224, 0.2);
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8) contrast(1.1);
+        }
+
+        .vehicle-specs {
+            color: #00f5d4;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        /* Report Form */
+        .report-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .report-form {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid rgba(127, 255, 224, 0.3);
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+        }
+
+        .report-form h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #00f5d4;
+            text-shadow: 0 0 15px #00f5d4;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00f5d4;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(127, 255, 224, 0.3);
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00f5d4;
+            box-shadow: 0 0 15px rgba(127, 255, 224, 0.3);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: transparent;
+            border: 2px solid #ff0000;
+            color: #ff0000;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: rgba(255, 0, 0, 0.1);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        .form-note {
+            text-align: center;
+            color: #a0a0a0;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 1px solid rgba(127, 255, 224, 0.2);
+        }
+
+        footer p {
+            color: #666;
+            font-size: 0.85rem;
+            letter-spacing: 0.08rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
                 align-items: stretch;
-                padding: 0.75rem 1rem;
+                padding: 0.75rem 1.5rem;
                 gap: 0.75rem;
+            }
+
+            .nav-brand {
+                text-align: center;
             }
 
             .nav-toggle {
                 display: flex;
                 align-self: flex-end;
-            }
-
-            .nav-toggle-label {
-                font-size: 0.75rem;
-                letter-spacing: 0.1rem;
             }
 
             .nav-links {
@@ -429,9 +704,8 @@
                 width: 100%;
                 background: rgba(0, 0, 0, 0.95);
                 border: 1px solid rgba(127, 255, 224, 0.2);
-                border-radius: 0.75rem;
-                padding: 0.75rem 0.5rem;
-                box-shadow: 0 0 20px rgba(127, 255, 224, 0.15);
+                border-radius: 4px;
+                padding: 0.75rem;
             }
 
             .nav-links.open {
@@ -441,650 +715,79 @@
             .nav-link {
                 width: 100%;
                 text-align: center;
-                font-size: 0.8rem;
-                letter-spacing: 0.1rem;
-                padding: 0.75rem 1rem;
-                border: 1px solid rgba(127, 255, 224, 0.15);
-                border-radius: 0.5rem;
-            }
-
-            header {
-                padding: 3rem 1.5rem;
-                min-height: 60vh;
-            }
-
-            .logo {
-                font-size: 4rem;
-                letter-spacing: 1rem;
-            }
-
-            .tagline {
-                font-size: 1.4rem;
-                letter-spacing: 0.3rem;
-            }
-
-            .hero {
-                padding: 3rem 1.5rem;
-                min-height: auto;
-            }
-
-            .hero h2 {
-                font-size: 2.4rem;
-                letter-spacing: 0.1rem;
-            }
-
-            .hero-text {
-                font-size: 1rem;
-                line-height: 1.8;
-            }
-
-            .cta-button {
-                padding: 1.2rem 2.5rem;
-                font-size: 1.1rem;
-                letter-spacing: 0.15rem;
-            }
-
-            .features {
-                padding: 3rem 1.5rem;
-                gap: 1.5rem;
-            }
-
-            .feature-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .feature-icon {
-                font-size: 3rem;
-            }
-
-            .feature-card h3 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding-top: 60px;
-            }
-
-            .nav-link {
-                padding: 0.65rem 0.9rem;
-                letter-spacing: 0.08rem;
-            }
-
-            .nav-links {
-                padding: 0.6rem 0.4rem;
-            }
-
-            .nav-toggle {
-                padding: 0.45rem 0.75rem;
-                font-size: 0.7rem;
             }
 
             .alert-container {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
+                right: 10px;
+                left: 10px;
                 max-width: none;
-                padding: 0 1rem;
-            }
-
-            header {
-                padding: 2.5rem 1.25rem;
             }
 
             .logo {
-                font-size: 2.8rem;
-                letter-spacing: 0.4rem;
+                font-size: 3.5rem;
+                letter-spacing: 0.8rem;
             }
 
             .tagline {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
                 letter-spacing: 0.2rem;
-                text-align: center;
             }
 
-            .hero {
-                padding: 2.5rem 1.25rem;
-            }
-
-            .hero h2 {
+            .hero-content h2 {
                 font-size: 2rem;
             }
 
-            .hero-text {
-                font-size: 0.95rem;
-            }
-
-            .cta-button {
-                width: 100%;
-            }
-
-            .features {
-                padding: 2.5rem 1.25rem;
-            }
-
-            .feature-card {
-                padding: 1.75rem 1.25rem;
-            }
-        }
-
-
-         @media (max-width: 768px) {
-            body {
-                padding-top: 70px;
-            }
-
-            .nav-container {
-                padding: 0.75rem 1rem;
-                gap: 1rem;
-            }
-
-            .nav-link {
-                font-size: 0.8rem;
-                letter-spacing: 0.1rem;
-                padding: 0.4rem 0.8rem;
-            }
-
-            header {
+            .content-section {
                 padding: 3rem 1.5rem;
-                min-height: 60vh;
             }
 
-            .logo {
-                font-size: 4rem;
-                letter-spacing: 1rem;
-            }
-
-            .tagline {
-                font-size: 1.4rem;
-                letter-spacing: 0.3rem;
-            }
-
-            .hero {
-                padding: 3rem 1.5rem;
-                min-height: auto;
-            }
-
-            .hero h2 {
-                font-size: 2.4rem;
-                letter-spacing: 0.1rem;
-            }
-
-            .hero-text {
-                font-size: 1rem;
-                line-height: 1.8;
-            }
-
-            .cta-button {
-                padding: 1.2rem 2.5rem;
-                font-size: 1.1rem;
-                letter-spacing: 0.15rem;
-            }
-
-            .features {
-                padding: 3rem 1.5rem;
-                gap: 1.5rem;
-            }
-
-            .feature-card {
-                            padding: 2rem 1.5rem;
-            }
-
-            .feature-icon {
-                font-size: 3rem;
-            }
-
-            .feature-card h3 {
-                font-size: 1.5rem;
+            .section-title {
+                font-size: 2rem;
             }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding-top: 60px;
+            .logo {
+                font-size: 2.5rem;
+                letter-spacing: 0.5rem;
             }
 
-            .nav-container {
-                flex-direction: column;
-                align-items: stretch;
+            .tagline {
+                font-size: 1rem;
             }
 
-            .nav-link {
-                width: 100%;
-                text-align: center;
-                border: 1px solid rgba(127, 255, 224, 0.2);
+            .hero-content h2 {
+                font-size: 1.6rem;
+            }
+
+            .alert {
                 padding: 0.6rem 0.8rem;
             }
 
-            .alert-container {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                max-width: none;
-                padding: 0 1rem;
+            .alert-title {
+                font-size: 0.8rem;
             }
 
-            header {
-                padding: 2.5rem 1.25rem;
+            .alert-message {
+                font-size: 0.7rem;
             }
-
-            .logo {
-                font-size: 2.8rem;
-                letter-spacing: 0.4rem;
-            }
-
-            .tagline {
-                font-size: 1.1rem;
-                letter-spacing: 0.2rem;
-                text-align: center;
-            }
-
-            .hero {
-                padding: 2.5rem 1.25rem;
-            }
-
-            .hero h2 {
-                font-size: 2rem;
-            }
-
-            .hero-text {
-                font-size: 0.95rem;
-            }
-
-            .cta-button {
-                width: 100%;
-            }
-
-            .features {
-                padding: 2.5rem 1.25rem;
-            }
-
-            .feature-card {
-                padding: 1.75rem 1.25rem;
-            }
-        }
-
-        .alert-container {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            max-width: 400px;
-        }
-
-        .alert {
-            background: rgba(0, 0, 0, 0.95);
-            border: 2px solid #ff0000;
-            border-left: 5px solid #ff0000;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 
-                0 0 30px rgba(255, 0, 0, 0.5),
-                inset 0 0 20px rgba(255, 0, 0, 0.1);
-            animation: slideIn 0.5s ease-out, alertPulse 2s infinite;
-            backdrop-filter: blur(10px);
-            font-family: 'Courier New', monospace;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(-400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideOut {
-            to {
-                transform: translateX(-400px);
-                opacity: 0;
-            }
-        }
-
-        @keyframes alertPulse {
-            0%, 100% { 
-                box-shadow: 
-                    0 0 30px rgba(255, 0, 0, 0.5),
-                    inset 0 0 20px rgba(255, 0, 0, 0.1);
-            }
-            50% { 
-                box-shadow: 
-                    0 0 50px rgba(255, 0, 0, 0.8),
-                    inset 0 0 30px rgba(255, 0, 0, 0.2);
-            }
-        }
-
-        .alert-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.8rem;
-            color: #ff0000;
-            font-weight: bold;
-            font-size: 0.85rem;
-            letter-spacing: 0.1rem;
-        }
-
-        .alert-icon {
-            font-size: 1.5rem;
-            margin-right: 0.8rem;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0.2; }
-        }
-
-        .alert-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #00f5d4;
-            margin-bottom: 0.8rem;
-            text-shadow: 0 0 10px #00f5d4;
-            letter-spacing: 0.1rem;
-        }
-
-        .alert-message {
-            color: #cccccc;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .alert-time {
-            font-size: 0.75rem;
-            color: #666;
-            margin-top: 0.8rem;
-            text-align: right;
-            letter-spacing: 0.05rem;
-        }
-
-        footer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.9);
-            margin-top: 4rem;
-            border-top: 1px solid rgba(127, 255, 224, 0.2);
-        }
-
-        footer p {
-            color: #666;
-            font-size: 0.9rem;
-            letter-spacing: 0.1rem;
-        }
-
-        /* Team Members Section */
-        .team-section, .vehicles-section {
-            position: relative;
-            z-index: 10;
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #00f5d4;
-            text-shadow: 0 0 20px #00f5d4;
-            text-transform: uppercase;
-            letter-spacing: 0.3rem;
-        }
-
-        .team-grid, .vehicles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .team-card, .vehicle-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(127, 255, 224, 0.3);
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .team-card::before, .vehicle-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00f5d4, transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .team-card:hover, .vehicle-card:hover {
-            border-color: #00f5d4;
-            box-shadow: 
-                0 0 30px rgba(127, 255, 224, 0.3),
-                inset 0 0 30px rgba(127, 255, 224, 0.05);
-            transform: translateY(-5px);
-        }
-
-        .team-card:hover::before, .vehicle-card:hover::before {
-            opacity: 1;
-        }
-
-        .team-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            border: 3px solid #00f5d4;
-            box-shadow: 0 0 20px rgba(127, 255, 224, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            background: rgba(127, 255, 224, 0.1);
-            overflow: hidden;
-        }
-
-        .team-avatar svg {
-            width: 80%;
-            height: 80%;
-            fill: #00f5d4;
-            filter: drop-shadow(0 0 10px #00f5d4);
-        }
-
-        .team-name {
-            font-size: 1.5rem;
-            color: #00f5d4;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-        }
-
-        .team-role {
-            color: #a0a0a0;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .team-callsign {
-            color: #00ffff;
-            font-size: 0.9rem;
-            font-family: 'Courier New', monospace;
-        }
-
-        .vehicle-image {
-            width: 100%;
-            height: 200px;
-            background: rgba(127, 255, 224, 0.05);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(127, 255, 224, 0.2);
-            overflow: hidden;
-        }
-
-        .vehicle-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.7) contrast(1.2);
-        }
-
-        .vehicle-name {
-            font-size: 1.5rem;
-            color: #00f5d4;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-        }
-
-        .vehicle-type {
-            color: #a0a0a0;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .vehicle-specs {
-            color: #00f5d4;
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .vehicle-status {
-            color: #00ffff;
-            font-size: 0.9rem;
-            font-family: 'Courier New', monospace;
-        }
-
-        /* Report Form Section */
-        .report-section {
-            position: relative;
-            z-index: 10;
-            padding: 4rem 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .report-form {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid rgba(127, 255, 224, 0.3);
-            padding: 3rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .report-form h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #00f5d4;
-            text-shadow: 0 0 20px #00f5d4;
-            text-transform: uppercase;
-            letter-spacing: 0.3rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            color: #00f5d4;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(127, 255, 224, 0.3);
-            color: #fff;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #00f5d4;
-            box-shadow: 0 0 20px rgba(127, 255, 224, 0.3);
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1.5rem;
-            background: transparent;
-            border: 2px solid #ff0000;
-            color: #ff0000;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.2rem;
-            font-family: 'Courier New', monospace;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-        }
-
-        .submit-btn:hover {
-            background: rgba(255, 0, 0, 0.1);
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
-            transform: scale(1.02);
-        }
-
-        .form-note {
-            text-align: center;
-            color: #a0a0a0;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* Glitch effect for headers */
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
         }
     </style>
 </head>
 <body>
     <nav class="nav-bar">
         <div class="nav-container">
-         <button class="nav-toggle" aria-expanded="false" aria-controls="navLinks">
+            <div class="nav-brand">LCNP</div>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="navLinks">
                 <span class="nav-toggle-icon" aria-hidden="true"></span>
                 <span class="nav-toggle-label">Menu</span>
             </button>
             <div class="nav-links" id="navLinks">
-                <a class="nav-link" href="#home">Home</a>
-                <a class="nav-link" href="#mission">Mission</a>
-                <a class="nav-link" href="#team">Team</a>
-                <a class="nav-link" href="#fleet">Fleet</a>
-                <a class="nav-link" href="#report">Report</a>
+                <a class="nav-link" data-page="home">Home</a>
+                <a class="nav-link" data-page="mission">Mission</a>
+                <a class="nav-link" data-page="team">Team</a>
+                <a class="nav-link" data-page="fleet">Fleet</a>
+                <a class="nav-link" data-page="report">Report</a>
             </div>
         </div>
     </nav>
@@ -1092,371 +795,182 @@
     <div class="alert-container" id="alertContainer"></div>
     <div class="scanlines"></div>
     <div class="vignette"></div>
-    <div class="grid-bg"></div>
 
-    <header id="home">
-        <div class="logo">LCNP</div>
-        <div class="tagline">Lakewood Commons Night Patrol</div>
-    </header>
-
-    <section class="hero" id="mission">
-        <h2>Eyes in the Darkness</h2>
-        <p class="hero-text">
-            When the streets fall silent and shadows grow long, we emerge. A dedicated force of vigilant protectors, we patrol Lakewood Commons through the darkest hours. Every suspicious movement, every unknown face, every potential threat—we're watching. The night belongs to us.
-        </p>
-        <button class="cta-button" onclick="document.getElementById('report').scrollIntoView({behavior: 'smooth'})">ENLIST NOW</button>
-    </section>
-
-    <section class="features">
-        <div class="feature-card">
-            <div class="feature-icon">◈</div>
-            <h3>Night Operations</h3>
-            <p>Systematic patrol routes through every shadow and alley. We operate when others sleep, maintaining vigilance until dawn breaks.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">▲</div>
-            <h3>Threat Detection</h3>
-            <p>Trained to identify suspicious patterns, unauthorized presence, and potential danger before incidents escalate.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">●</div>
-            <h3>Silent Guardians</h3>
-            <p>We move unseen, unheard. A protective force maintaining order through presence and tactical awareness.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">✦</div>
-            <h3>Rapid Response</h3>
-            <p>Coordinated dispatch protocols ensure swift backup, medical aid, and communication with local authorities when every second counts.</p>
-        </div>
-    </section>
-
-    <section class="team-section" id="team">
-        <h2 class="section-title">Team Members</h2>
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Shloimy Japha</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 20</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Yaakov Deckelbaum</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 31</div>
-                </div>
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Uri Fleischman</div>
-                <div class="team-role">Inactive Member</div>
-                <div class="team-callsign">UNIT 61</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Yisroel Saslow</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 33</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">
-                    <img src="./assets/sykatz.jpg" alt="Sholom Y. Katz" />
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Sholom Y. Katz</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 52</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Dovi Mintz</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 57</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Mendy Weissberg</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 67</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Yisroel M. Hirsch</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 68</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <div class="team-name">Noach Yoffe</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 81</div>
+    <!-- HOME PAGE -->
+    <div class="page active" id="home">
+        <div class="hero-header">
+            <div class="logo">LCNP</div>
+            <div class="tagline">Lakewood Commons Night Patrol</div>
+            <div class="hero-content">
+                <h2>Eyes in the Darkness</h2>
+                <p>
+                    When the streets fall silent and shadows grow long, we emerge. A dedicated force of vigilant protectors, we patrol Lakewood Commons through the darkest hours.
+                </p>
+                <button class="cta-button" onclick="navigateTo('report')">ENLIST NOW</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="vehicles-section" id="fleet">
-        <h2 class="section-title">Fleet</h2>
-        <div class="vehicles-grid">
-            <div class="vehicle-card">
-                <div class="vehicle-image">
-                    <img src="./assets/tahoe.png" alt="Chevy Tahoe">
+    <!-- MISSION PAGE -->
+    <div class="page" id="mission">
+        <div class="content-section">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <h3>Night Operations</h3>
+                    <p>Systematic patrol routes through every shadow and alley. We operate when others sleep, maintaining vigilance until dawn breaks.</p>
                 </div>
-                <div class="vehicle-name">Patrol Unit 1</div>
-                <div class="vehicle-type">2010 Black Chevy Tahoe</div>
-                <div class="vehicle-specs">Equipped with emergency lighting package & reinforced metal bumper</div>
-                <div class="vehicle-status">STATUS: ACTIVE</div>
-            </div>
-            <div class="vehicle-card">
-                <div class="vehicle-image">
-                  <img src="./assets/tahoe.png" alt="acura Mdx">
+                <div class="feature-card">
+                    <div class="feature-icon">▲</div>
+                    <h3>Threat Detection</h3>
+                    <p>Trained to identify suspicious patterns, unauthorized presence, and potential danger before incidents escalate.</p>
                 </div>
-                <div class="vehicle-name">Patrol Unit 2</div>
-                <div class="vehicle-type">2016 Black Acura MDX</div>
-                <div class="vehicle-specs">Standard patrol configuration</div>
-                <div class="vehicle-status">STATUS: ACTIVE</div>
-            </div>
-            <div class="vehicle-card">
-                <div class="vehicle-image">
-                    <img src="./assets/tahoe.png" alt="Chevy Tahoe">
+                <div class="feature-card">
+                    <div class="feature-icon">●</div>
+                    <h3>Silent Guardians</h3>
+                    <p>We move unseen, unheard. A protective force maintaining order through presence and tactical awareness.</p>
                 </div>
-                <div class="vehicle-name">Patrol Unit 3</div>
-                <div class="vehicle-type">2008 White Chevy Tahoe</div>
-                <div class="vehicle-specs">Equipped with emergency lighting package & reinforced metal bumper</div>
-                <div class="vehicle-status">STATUS: ACTIVE</div>
-            </div>
-            <div class="vehicle-card">
-                <div class="vehicle-image">
-                  <img src="./assets/tahoe.png" alt="Toyota Camry">
+                <div class="feature-card">
+                    <div class="feature-icon">✦</div>
+                    <h3>Rapid Response</h3>
+                    <p>Coordinated dispatch protocols ensure swift backup, medical aid, and communication with local authorities when every second counts.</p>
                 </div>
-                <div class="vehicle-name">Patrol Unit 4</div>
-                <div class="vehicle-type">2018 Grey Toyota Camry</div>
-                <div class="vehicle-specs">Standard patrol configuration</div>
-                <div class="vehicle-status">STATUS: ACTIVE</div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="report-section" id="report">
-        <div class="report-form">
-            <h2>Report Suspicious Activity</h2>
-            <div class="form-group">
-                <label for="reporter-name">Your Name</label>
-                <input type="text" id="reporter-name" placeholder="Enter your name" required>
-            </div>
-            <div class="form-group">
-                <label for="reporter-phone">Contact Number</label>
-                <input type="tel" id="reporter-phone" placeholder="Enter phone number" required>
-            </div>
-            <div class="form-group">
-                <label for="incident-type">Incident Type</label>
-                <select id="incident-type" required>
-                    <option value="">Select incident type...</option>
-                    <option value="suspicious-person">Suspicious Person</option>
-                    <option value="suspicious-vehicle">Suspicious Vehicle</option>
-                    <option value="prowler">Prowler/Trespassing</option>
-                    <option value="vandalism">Vandalism</option>
-                    <option value="disturbance">Disturbance</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="location">Location</label>
-                <input type="text" id="location" placeholder="Street address or area" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" placeholder="Provide detailed description of the incident, person(s) involved, vehicle details, etc." required></textarea>
-            </div>
-            <button class="submit-btn" onclick="submitReport()">SUBMIT REPORT</button>
-            <p class="form-note">
-                For emergencies, always call 911 first.<br>
-                This form is monitored by LCNP patrol units for community awareness.
-            </p>
-        </div>
-    </section>
-
-    <footer>
-        <p>◆ LCNP © 2024 | PROTECTING LAKEWOOD COMMONS AFTER DARK ◆</p>
-    </footer>
-
-    <script>
-        const navToggle = document.querySelector('.nav-toggle');
-        const navLinksContainer = document.getElementById('navLinks');
-        const mobileBreakpoint = 768;
-
-        if (navToggle && navLinksContainer) {
-            navToggle.addEventListener('click', () => {
-                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-                navToggle.setAttribute('aria-expanded', (!expanded).toString());
-                navLinksContainer.classList.toggle('open', !expanded);
-            });
-
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > mobileBreakpoint) {
-                    navLinksContainer.classList.remove('open');
-                    navToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-        // Smooth scrolling for navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                 if (navToggle && navLinksContainer && window.innerWidth <= mobileBreakpoint) {
-                    navLinksContainer.classList.remove('open');
-                    navToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        });
-
-        // Alert system
-        const alerts = [
-            { title: "SUSPICIOUS VEHICLE", message: "Black sedan circling Oak Street. License plate unclear. Proceed with caution.", icon: "■" },
-            { title: "FOLLOW UP - BIKER", message: "Individual on bicycle spotted near the shul. Check activity and report.", icon: "■" },
-            { title: "UNKNOWN PERSON", message: "Unidentified person walking through backyard area by corner of towers and the woods. Investigate immediately.", icon: "■" },
-            { title: "DISTURBANCE REPORTED", message: "Loud noises coming from main road, near House #210. Unit 57 respond.", icon: "■" },
-            { title: "SUSPICIOUS ACTIVITY", message: "Person looking into parked cars on funston. Approach and question.", icon: "■" },
-            { title: "Command Location", message: "Command currently empty. Any units available to head over.", icon: "■" },
-            { title: "VANDALISM ALERT", message: "Fresh graffiti spotted on playground equipment. Document and report.", icon: "■" },
-            { title: "PROWLER SIGHTING", message: "Shadow figure seen near garages. Patrol units converge on location.", icon: "■" },
-            { title: "VEHICLE PARKING", message: "Unknown van parked with engine running near phase 4 park. Monitor situation.", icon: "■" },
-            { title: "FOLLOW UP - JOGGER", message: "Late night jogger reported. Verify identity and intentions.", icon: "■" }
-        ];
-
-        function createAlert(alertData) {
-            const container = document.getElementById('alertContainer');
-            const alert = document.createElement('div');
-            alert.className = 'alert';
-            
-            const now = new Date();
-            const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            
-            alert.innerHTML = `
-                <div class="alert-header">
-                    <span class="alert-icon">${alertData.icon}</span>
-                    <span>INCOMING TRANSMISSION</span>
+    <!-- TEAM PAGE -->
+    <div class="page" id="team">
+        <div class="content-section">
+            <h2 class="section-title">Team Members</h2>
+            <div class="card-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Shloimy Japha</div>
+                    <div class="team-role">Field Operative</div>
+                    <div class="team-callsign">UNIT 20</div>
                 </div>
-                <div class="alert-title">${alertData.title}</div>
-                <div class="alert-message">${alertData.message}</div>
-                <div class="alert-time">${time}</div>
-            `;
-            
-            container.appendChild(alert);
-            
-            // Remove alert after 8 seconds
-            setTimeout(() => {
-                alert.style.animation = 'slideOut 0.5s ease-out forwards';
-                setTimeout(() => alert.remove(), 500);
-            }, 8000);
-        }
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Yaakov Deckelbaum</div>
+                    <div class="team-role">Field Operative</div>
+                    <div class="team-callsign">UNIT 31</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Uri Fleischman</div>
+                    <div class="team-role">Inactive Member</div>
+                    <div class="team-callsign">UNIT 61</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Yisroel Saslow</div>
+                    <div class="team-role">Field Operative</div>
+                    <div class="team-callsign">UNIT 33</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Sholom Y. Katz</div>
+                    <div class="team-role">Field Operative</div>
+                    <div class="team-callsign">UNIT 52</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Dovi Mintz</div>
+                    <div class="team-role">Field Operative</div>
+                    <div class="team-callsign">UNIT 57</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Mendy Weissberg</div>
+                    <div class="team-role">Field Operative</div>
+                    <div class="team-callsign">UNIT 67</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Yisroel M. Hirsch</div>
+                    <div class="team-role">Field Operative</div>
+                    <div class="team-callsign">UNIT 68</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="team-name">Noach Yoffe</div>
+                    <div class="team-role">Field Operative</div>
+                    <div class="team-callsign">UNIT 81</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        function randomAlert() {
-            const randomIndex = Math.floor(Math.random() * alerts.length);
-            createAlert(alerts[randomIndex]);
-        }
-
-        // Show first alert after 3 seconds
-        setTimeout(randomAlert, 3000);
-
-        // Then show random alerts every 10-20 seconds
-        setInterval(() => {
-            randomAlert();
-        }, Math.random() * 10000 + 10000);
-
-        // Report form submission
-        function submitReport() {
-            const name = document.getElementById('reporter-name').value;
-            const phone = document.getElementById('reporter-phone').value;
-            const type = document.getElementById('incident-type').value;
-            const location = document.getElementById('location').value;
-            const description = document.getElementById('description').value;
-
-            if (!name || !phone || !type || !location || !description) {
-                alert('Please fill out all fields before submitting.');
-                return;
-            }
-
-            // Create alert notification
-            const reportAlert = {
-                title: "NEW REPORT SUBMITTED",
-                message: `${type.toUpperCase()} reported at ${location}. Patrol units dispatched.`,
-                icon: "■"
-            };
-            createAlert(reportAlert);
-
-            // Clear form
-            document.getElementById('reporter-name').value = '';
-            document.getElementById('reporter-phone').value = '';
-            document.getElementById('incident-type').value = '';
-            document.getElementById('location').value = '';
-            document.getElementById('description').value = '';
-
-            alert('Report submitted successfully. LCNP units have been notified.');
-        }
-
-        // Cursor trail effect with violet terminal style
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.8) { // Less frequent trails
-                const trail = document.createElement('div');
-                trail.style.position = 'fixed';
-                trail.style.width = '3px';
-                trail.style.height = '3px';
-                trail.style.background = '#00f5d4';
-                trail.style.left = e.clientX + 'px';
-                trail.style.top = e.clientY + 'px';
-                trail.style.pointerEvents = 'none';
-                trail.style.zIndex = '999';
-                trail.style.boxShadow = '0 0 10px #00f5d4';
-                document.body.appendChild(trail);
-
-                setTimeout(() => {
-                    trail.style.transition = 'all 0.5s';
-                    trail.style.opacity = '0';
-                    trail.style.transform = 'scale(2)';
-                }, 10);
-
-                setTimeout(() => {
-                    trail.remove();
-                }, 500);
-            }
-        });
-    </script>
-</body>
-</html>
+    <!-- FLEET PAGE -->
+    <div class="page" id="fleet">
+        <div class="content-section">
+            <h2 class="section-title">Fleet</h2>
+            <div class="card-grid">
+                <div class="vehicle-card">
+                    <div class="vehicle-image">
+                        <svg viewBox="0 0 24 24" fill="#00f5d4" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                        </svg>
+                    </div>
+                    <div class="vehicle-name">Patrol Unit 1</div>
+                    <div class="vehicle-type">2010 Black Chevy Tahoe</div>
+                    <div class="vehicle-specs">Emergency lighting • Reinforced bumper</div>
+                    <div class="vehicle-status">STATUS: ACTIVE</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="vehicle-image">
+                        <svg viewBox="0 0 24 24" fill="#00f5d4" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                        </svg>
+                    </div>
+                    <div class="vehicle-name">Patrol Unit 2</div>
+                    <div class="vehicle-type">2016 Black Acura MDX</div>
+                    <div class="vehicle-specs">Standard patrol configuration</div>
+                    <div class="vehicle-status">STATUS: ACTIVE</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="vehicle-image">
+                        <svg viewBox="0 0 24 24" fill="#00f5d4" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                        </svg>
+                    </div>
+                    <div class="vehicle-name">Patrol Unit 3</div>
+                    <div class="vehicle-type">2008 White Che

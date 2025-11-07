@@ -1,95 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LCNP – Lakewood Commons Night Patrol</title>
-<link rel="stylesheet" href="style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root{--cyan:#00eaff;--deep:#08111d;--ink:#0b1422;--glass:rgba(255,255,255,.06)}
+html,body{height:100%}
+body{
+    margin:0;
+    background:radial-gradient(1200px 600px at 50% -10%, #0a1a2e 0%, #050b14 40%, #02060b 100%);
+    color:#fff;
+    overflow-x:hidden;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto;
+}
+
+/* ---------------------------------------------------
+   SKYLINE / STARS / MOON / FOG / CAR / LIGHTNING
+--------------------------------------------------- */
+
+#skyline{position:fixed;bottom:0;left:0;right:0;height:160px;z-index:1;display:flex;gap:10px;opacity:.6}
+#skyline .b{flex:0 0 auto;background:linear-gradient(#020409,#050814 40%,#070a12);border:1px solid rgba(255,255,255,.06);position:relative}
+#skyline .b:before{
+    content:"";
+    position:absolute;
+    inset:6px;
+    background:repeating-linear-gradient(to bottom,rgba(255,255,255,.14)0 2px,transparent 2px 10px);
+    opacity:.15;
+    mix-blend:screen;
+}
+
+#starfield span{
+    position:absolute;
+    width:2px;height:2px;
+    background:#fff;border-radius:50%;opacity:.8;
+    animation:twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
+
+.moon{
+    position:fixed;top:48px;right:64px;width:96px;height:96px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fff,#e8f1ff 40%,#a8c0ff 62%,transparent 70%);
+    box-shadow:0 0 40px rgba(180,210,255,.35);z-index:2;
+}
+
+/* FOG */
+.fog{position:fixed;inset:0;pointer-events:none;filter:blur(120px);mix-blend:screen;z-index:2}
+.fog.f1{background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.12),transparent 60%);animation:fogMove1 50s linear infinite}
+.fog.f2{background:radial-gradient(circle at 70% 40%,rgba(255,255,255,.10),transparent 60%);animation:fogMove2 80s linear infinite}
+.fog.f3{background:radial-gradient(circle at 50% 60%,rgba(255,255,255,.08),transparent 60%);animation:fogMove3 120s linear infinite}
+
+@keyframes fogMove1{to{transform:translateX(-1200px)}}
+@keyframes fogMove2{to{transform:translateX(900px)}}
+@keyframes fogMove3{to{transform:translateX(-600px)}}
+
+/* LIGHTNING */
+#lightning{position:fixed;inset:0;background:#fff;mix-blend:screen;opacity:0;transition:.12s;z-index:5}
+
+/* HEADLIGHTS */
+#headlights{
+    position:fixed;bottom:78px;left:-20vw;width:12vw;height:10px;
+    background:radial-gradient(circle,rgba(255,255,220,.9),transparent 70%);
+    filter:blur(1px);opacity:.4;z-index:3;
+}
+
+/* PATROL CAR */
+#car{position:fixed;bottom:62px;left:0;width:140px;height:44px;z-index:3;opacity:.75}
+#car:before{content:"";position:absolute;left:8px;right:8px;bottom:0;height:28px;background:#0c1320;border-radius:10px}
+#car:after{content:"";position:absolute;left:42px;bottom:24px;width:78px;height:18px;background:#0c1320;border-radius:10px 10px 3px 3px}
+#car .bar{
+    position:absolute;left:62px;bottom:38px;width:18px;height:6px;
+    background:linear-gradient(90deg,#0ff,#06f);
+    box-shadow:0 0 16px rgba(0,200,255,.9);
+}
+#car .beam{
+    position:absolute;bottom:3px;width:0;height:0;
+    border-right:240px solid rgba(255,255,180,.09);
+    border-top:28px solid transparent;border-bottom:28px solid transparent;
+    filter:blur(1px);
+}
+#car .beam.left{left:-6px}
+#car .beam.right{right:-6px;transform:scaleX(-1)}
+
+/* ---------------------------------------------------
+   HERO SECTION
+--------------------------------------------------- */
+
+.hero{
+    position:relative;
+    z-index:4;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:0 1.25rem;
+}
+.hero h1{
+    font-size:4rem;
+    letter-spacing:.18em;
+    font-weight:900;
+    text-shadow:0 0 28px rgba(0,234,255,.45);
+    animation:pulseSlow 3s ease-in-out infinite;
+}
+@keyframes pulseSlow{0%,100%{opacity:.85}50%{opacity:1}}
+
+/* ---------------------------------------------------
+   ✅ UPDATED SECTION BACKGROUND
+   — Uses hero_banner.png for all non-hero sections
+--------------------------------------------------- */
+
+section:not(.hero){
+    position:relative;
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.85)),
+        url('hero_banner.png') center/cover no-repeat fixed;
+}
+
+/* darker overlay to enhance readability */
+section:not(.hero)::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom, rgba(0,0,0,.4), rgba(0,0,0,.8));
+    z-index:0;
+}
+section > *{position:relative;z-index:1}
+
+/* DISPATCH ALERT */
+#dispatch{
+    position:fixed;top:18px;left:18px;z-index:8;
+    padding:.9rem 1.1rem;border-radius:14px;
+    background:rgba(120,0,0,.8);
+    border:1px solid rgba(255,80,80,.7);
+    box-shadow:0 0 20px rgba(255,0,0,.55);
+    font-weight:800;display:flex;gap:.5rem;align-items:center;
+    opacity:0;pointer-events:none;
+}
+#dispatch .emoji{filter:drop-shadow(0 0 6px rgba(255,0,0,1))}
+</style>
 </head>
+
 <body>
 
-<div class="hero">
-  <img src="assets/hero-banner.png" class="hero-banner" alt="LCNP Hero Banner">
-  <div class="badge-corner">
-    <img src="assets/badge.png" class="badge" alt="LCNP Patrol Badge">
-    <span>LCNP PATROL</span>
-  </div>
+<!-- SKY DECOR -->
+<div id="starfield" class="fixed inset-0 z-[0]"></div>
+<div class="moon"></div>
+<div class="fog f1"></div>
+<div class="fog f2"></div>
+<div class="fog f3"></div>
+<div id="lightning"></div>
+<div id="headlights"></div>
+<div id="car">
+    <div class="bar"></div>
+    <div class="beam left"></div>
+    <div class="beam right"></div>
 </div>
 
-</body>
-<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Shmuel “Eagle Eyes” Levine</h3><p class="opacity-70 text-sm mt-2">Lead Patrol Commander</p></div>
-<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Mendy “Silent Hawk” Friedman</h3><p class="opacity-70 text-sm mt-2">Dispatcher</p></div>
-<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Avi “Ghoststep” Klein</h3><p class="opacity-70 text-sm mt-2">Training Captain</p></div>
-<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Yaakov “Beacon” Stein</h3><p class="opacity-70 text-sm mt-2">Community Liaison</p></div>
-<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Rafi “Roadrunner” Gold</h3><p class="opacity-70 text-sm mt-2">Logistics</p></div>
-<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Moshe “Scribe” Adler</h3><p class="opacity-70 text-sm mt-2">Reports & Data</p></div>
-</div>
+<!-- ✅ HERO -->
+<section class="hero">
+    <h1>LCNP</h1>
+    <p class="mt-4 text-lg opacity-80">Lakewood Commons Night Patrol</p>
 </section>
 
-
-<!-- JOIN -->
-<section id="join" class="relative z-[4] py-28 text-center px-6">
-<h2 class="text-5xl font-extrabold mb-6 reveal">Join the Patrol</h2>
-<p class="opacity-85 mb-8 reveal">Volunteer one night a week or serve as standby. Training and gear provided.</p>
-<a href="#report" class="inline-block px-8 py-4 rounded-xl glass glow hover:brightness-125 reveal">Sign Up / Ask a Question</a>
+<!-- ✅ EXAMPLE CONTENT SECTIONS USING THE NEW BACKGROUND -->
+<section class="py-24">
+    <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-6">Our Mission</h2>
+        <p class="text-xl leading-relaxed opacity-90">
+            The Lakewood Commons Night Patrol operates every night to ensure safety,
+            visibility, and rapid response within our community.  
+            We patrol, observe, protect, and serve our neighbors with pride.
+        </p>
+    </div>
 </section>
 
-
-<!-- REPORT -->
-<section id="report" class="relative z-[4] py-28 px-6 bg-white/5 backdrop-blur-md border-t border-white/10">
-<h2 class="text-5xl font-extrabold text-center mb-10 reveal">Suspicious Activity Report</h2>
-<form class="max-w-4xl mx-auto grid gap-6 glass p-8 rounded-2xl reveal">
-<div class="grid md:grid-cols-2 gap-4">
-<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Your Name (required)" required />
-<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Phone Number (required)" required />
-</div>
-<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Exact Location or Address (required)" required />
-<div class="grid md:grid-cols-2 gap-4">
-<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Nearest Landmark / Building" />
-<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Time Seen (approx)" />
-</div>
-<textarea class="p-4 bg-black/30 border border-white/20 rounded-lg" rows="6" placeholder="Describe what you saw: behavior, clothing, direction of travel, sounds, vehicle details, etc."></textarea>
-<div class="grid md:grid-cols-3 gap-3 text-sm">
-<label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Urgent / Immediate Threat</label>
-<label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Vehicle Involved</label>
-<label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Police Already Notified</label>
-</div>
-<button class="p-4 bg-white/10 border border-white/20 rounded-lg text-lg hover:bg-white/20 transition">Submit Report</button>
-</form>
+<section class="py-24">
+    <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-6">Join the Patrol</h2>
+        <p class="text-xl opacity-90">
+            Members are trained to identify suspicious activity, maintain situational awareness,
+            and support local residents in times of need.
+        </p>
+    </div>
 </section>
 
-
-<footer class="relative z-[4] py-10 text-center text-sm opacity-60">© 2025 LCNP Night Patrol</footer>
-
-
-<!-- STARFIELD GEN + MOTION -->
-<script>
-(function(){
-const sf=document.getElementById('starfield');
-for(let i=0;i<180;i++){const s=document.createElement('span');s.style.top=Math.random()*100+'vh';s.style.left=Math.random()*100+'vw';s.style.animationDelay=(Math.random()*5)+'s';sf.appendChild(s);}
-})();
-</script>
-<!-- LIGHTNING + CAR + HEADLIGHTS ANIMATIONS -->
-<script>
-setInterval(()=>{const L=document.getElementById('lightning');L.style.opacity=Math.random()*0.8;setTimeout(()=>L.style.opacity=0,90)}, 4000+Math.random()*4000);
-setInterval(()=>{document.getElementById('headlights').animate([{transform:'translateX(-20vw)'},{transform:'translateX(130vw)'}],{duration:6500,easing:'ease-in-out'})}, 9000);
-setInterval(()=>{const c=document.getElementById('car');c.animate([{transform:'translateX(-12vw)'},{transform:'translateX(132vw)'}],{duration:16000,easing:'linear'})}, 20000);
-</script>
-<!-- DISPATCH RANDOM MESSAGES -->
-<script>
-const dbox=document.getElementById('dispatch');const dmsg=document.getElementById('dmsg');
-const msgs=['⚠️ Dispatch: Code 42 — unknown movement near Court D','🚨 Patrol: sweep north walkway','⚠️ Report: vehicle circling block twice','🚨 Units: status check-in','⚠️ Noise near Oak & Maple'];
-setInterval(()=>{const m=msgs[Math.floor(Math.random()*msgs.length)];dmsg.textContent=m;dbox.animate([{opacity:0,transform:'translateX(-18px)'},{opacity:1,transform:'translateX(0)'},{opacity:1},{opacity:0,transform:'translateX(-18px)'}],{duration:5200})}, 11000);
-</script>
-<!-- SCROLL REVEAL + HEARTBEAT -->
-<script>
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.style.animation='heartbeat 1.8s ease-in-out';setTimeout(()=>{e.target.style.animation=''},1800);}})},{threshold:.2});
-document.querySelectorAll('.reveal,.glass').forEach(el=>io.observe(el));
-</script>
-<!-- SKYLINE (random buildings) -->
-<div id="skyline"></div>
-<script>
-(function(){const s=document.getElementById('skyline');for(let i=0;i<24;i++){const b=document.createElement('div');b.className='b';b.style.width=(20+Math.random()*40)+'px';b.style.height=(60+Math.random()*100)+'px';s.appendChild(b);} })();
-</script>
 </body>
 </html>

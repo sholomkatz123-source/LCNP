@@ -38,7 +38,80 @@
             align-items: center;
             padding: 1rem 2rem;
             gap: 2rem;
-            flex-wrap: wrap;
+              position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-toggle {
+            display: none;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 255, 0, 0.4);
+            color: #00ff00;
+            padding: 0.5rem 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.12rem;
+        }
+
+        .nav-toggle:hover,
+        .nav-toggle:focus {
+            border-color: #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.25);
+            outline: none;
+        }
+
+        .nav-toggle-icon {
+            position: relative;
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #00ff00;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .nav-toggle-icon::before,
+        .nav-toggle-icon::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #00ff00;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-toggle-icon::before {
+            top: -6px;
+        }
+
+        .nav-toggle-icon::after {
+            top: 6px;
+        }
+
+        .nav-toggle[aria-expanded="true"] .nav-toggle-icon {
+            background: transparent;
+        }
+
+        .nav-toggle[aria-expanded="true"] .nav-toggle-icon::before {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .nav-toggle[aria-expanded="true"] .nav-toggle-icon::after {
+            transform: translateY(-6px) rotate(-45deg);
         }
 
         .nav-link {
@@ -326,6 +399,177 @@
             color: #a0a0a0;
             line-height: 1.8;
         }
+
+         @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0.75rem 1rem;
+                gap: 0.75rem;
+            }
+
+            .nav-toggle {
+                display: flex;
+                align-self: flex-end;
+            }
+
+            .nav-toggle-label {
+                font-size: 0.75rem;
+                letter-spacing: 0.1rem;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                border: 1px solid rgba(0, 255, 0, 0.2);
+                border-radius: 0.75rem;
+                padding: 0.75rem 0.5rem;
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                font-size: 0.8rem;
+                letter-spacing: 0.1rem;
+                padding: 0.75rem 1rem;
+                border: 1px solid rgba(0, 255, 0, 0.15);
+                border-radius: 0.5rem;
+            }
+
+            header {
+                padding: 3rem 1.5rem;
+                min-height: 60vh;
+            }
+
+            .logo {
+                font-size: 4rem;
+                letter-spacing: 1rem;
+            }
+
+            .tagline {
+                font-size: 1.4rem;
+                letter-spacing: 0.3rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+                min-height: auto;
+            }
+
+            .hero h2 {
+                font-size: 2.4rem;
+                letter-spacing: 0.1rem;
+            }
+
+            .hero-text {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .cta-button {
+                padding: 1.2rem 2.5rem;
+                font-size: 1.1rem;
+                letter-spacing: 0.15rem;
+            }
+
+            .features {
+                padding: 3rem 1.5rem;
+                gap: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .feature-icon {
+                font-size: 3rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 60px;
+            }
+
+            .nav-link {
+                padding: 0.65rem 0.9rem;
+                letter-spacing: 0.08rem;
+            }
+
+            .nav-links {
+                padding: 0.6rem 0.4rem;
+            }
+
+            .nav-toggle {
+                padding: 0.45rem 0.75rem;
+                font-size: 0.7rem;
+            }
+
+            .alert-container {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                max-width: none;
+                padding: 0 1rem;
+            }
+
+            header {
+                padding: 2.5rem 1.25rem;
+            }
+
+            .logo {
+                font-size: 2.8rem;
+                letter-spacing: 0.4rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+                letter-spacing: 0.2rem;
+                text-align: center;
+            }
+
+            .hero {
+                padding: 2.5rem 1.25rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero-text {
+                font-size: 0.95rem;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+
+            .features {
+                padding: 2.5rem 1.25rem;
+            }
+
+            .feature-card {
+                padding: 1.75rem 1.25rem;
+            }
+        }
+
 
          @media (max-width: 768px) {
             body {
@@ -831,11 +1075,17 @@
 <body>
     <nav class="nav-bar">
         <div class="nav-container">
-            <a class="nav-link" href="#home">Home</a>
-            <a class="nav-link" href="#mission">Mission</a>
-            <a class="nav-link" href="#team">Team</a>
-            <a class="nav-link" href="#fleet">Fleet</a>
-            <a class="nav-link" href="#report">Report</a>
+         <button class="nav-toggle" aria-expanded="false" aria-controls="navLinks">
+                <span class="nav-toggle-icon" aria-hidden="true"></span>
+                <span class="nav-toggle-label">Menu</span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a class="nav-link" href="#home">Home</a>
+                <a class="nav-link" href="#mission">Mission</a>
+                <a class="nav-link" href="#team">Team</a>
+                <a class="nav-link" href="#fleet">Fleet</a>
+                <a class="nav-link" href="#report">Report</a>
+            </div>
         </div>
     </nav>
 
@@ -1052,6 +1302,24 @@
     </footer>
 
     <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinksContainer = document.getElementById('navLinks');
+        const mobileBreakpoint = 768;
+
+        if (navToggle && navLinksContainer) {
+            navToggle.addEventListener('click', () => {
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', (!expanded).toString());
+                navLinksContainer.classList.toggle('open', !expanded);
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > mobileBreakpoint) {
+                    navLinksContainer.classList.remove('open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
         // Smooth scrolling for navigation
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -1060,6 +1328,10 @@
                 const targetSection = document.getElementById(targetId);
                 if (targetSection) {
                     targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                 if (navToggle && navLinksContainer && window.innerWidth <= mobileBreakpoint) {
+                    navLinksContainer.classList.remove('open');
+                    navToggle.setAttribute('aria-expanded', 'false');
                 }
             });
         });

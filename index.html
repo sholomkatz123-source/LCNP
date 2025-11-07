@@ -468,8 +468,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 4rem;
             background: rgba(0, 255, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .team-avatar svg {
+            width: 80%;
+            height: 80%;
+            fill: #00ff00;
+            filter: drop-shadow(0 0 10px #00ff00);
         }
 
         .team-name {
@@ -500,8 +508,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
             border: 1px solid rgba(0, 255, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.2);
         }
 
         .vehicle-name {
@@ -529,6 +544,101 @@
             color: #00ffff;
             font-size: 0.9rem;
             font-family: 'Courier New', monospace;
+        }
+
+        /* Report Form Section */
+        .report-section {
+            position: relative;
+            z-index: 10;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .report-form {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .report-form h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #00ff00;
+            text-shadow: 0 0 20px #00ff00;
+            text-transform: uppercase;
+            letter-spacing: 0.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00ff00;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: transparent;
+            border: 2px solid #ff0000;
+            color: #ff0000;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: rgba(255, 0, 0, 0.1);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            transform: scale(1.02);
+        }
+
+        .form-note {
+            text-align: center;
+            color: #a0a0a0;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         /* Glitch effect for headers */
@@ -583,46 +693,84 @@
         <h2 class="section-title">Team Members</h2>
         <div class="team-grid">
             <div class="team-card">
-                <div class="team-avatar">◈</div>
-                <div class="team-name">Yaakov Deckelbaum</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 31</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">▲</div>
-                <div class="team-name">Yisroel Saslow</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 33</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">●</div>
-                <div class="team-name">Sholom Katz</div>
-                <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 52</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">■</div>
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
                 <div class="team-name">Shloimy Japha</div>
                 <div class="team-role">Field Operative</div>
                 <div class="team-callsign">UNIT 20</div>
             </div>
             <div class="team-card">
-                <div class="team-avatar">◆</div>
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="team-name">Yaakov Deckelbaum</div>
+                <div class="team-role">Field Operative</div>
+                <div class="team-callsign">UNIT 31</div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="team-name">Yisroel Saslow</div>
+                <div class="team-role">Field Operative</div>
+                <div class="team-callsign">UNIT 33</div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="team-name">Sholom Y. Katz</div>
+                <div class="team-role">Field Operative</div>
+                <div class="team-callsign">UNIT 52</div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
                 <div class="team-name">Dovi Mintz</div>
                 <div class="team-role">Field Operative</div>
                 <div class="team-callsign">UNIT 57</div>
             </div>
             <div class="team-card">
-                <div class="team-avatar">▼</div>
-                <div class="team-name">Noach Yoffe</div>
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="team-name">Mendy Weissberg</div>
                 <div class="team-role">Field Operative</div>
-                <div class="team-callsign">UNIT 81</div>
+                <div class="team-callsign">UNIT 67</div>
             </div>
             <div class="team-card">
-                <div class="team-avatar">◉</div>
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
                 <div class="team-name">Yisroel M. Hirsch</div>
                 <div class="team-role">Field Operative</div>
                 <div class="team-callsign">UNIT 68</div>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="team-name">Noach Yoffe</div>
+                <div class="team-role">Field Operative</div>
+                <div class="team-callsign">UNIT 81</div>
             </div>
         </div>
     </section>
@@ -631,33 +779,80 @@
         <h2 class="section-title">Fleet</h2>
         <div class="vehicles-grid">
             <div class="vehicle-card">
-                <div class="vehicle-image">🚙</div>
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80" alt="Chevy Tahoe">
+                </div>
                 <div class="vehicle-name">Patrol Unit 1</div>
                 <div class="vehicle-type">2010 Black Chevy Tahoe</div>
                 <div class="vehicle-specs">Equipped with emergency lighting package & reinforced metal bumper</div>
                 <div class="vehicle-status">STATUS: ACTIVE</div>
             </div>
             <div class="vehicle-card">
-                <div class="vehicle-image">🚗</div>
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=800&q=80" alt="Acura MDX">
+                </div>
                 <div class="vehicle-name">Patrol Unit 2</div>
                 <div class="vehicle-type">2016 Black Acura MDX</div>
                 <div class="vehicle-specs">Standard patrol configuration</div>
                 <div class="vehicle-status">STATUS: ACTIVE</div>
             </div>
             <div class="vehicle-card">
-                <div class="vehicle-image">🚙</div>
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=80" alt="White Chevy Tahoe">
+                </div>
                 <div class="vehicle-name">Patrol Unit 3</div>
                 <div class="vehicle-type">2008 White Chevy Tahoe</div>
                 <div class="vehicle-specs">Equipped with emergency lighting package & reinforced metal bumper</div>
                 <div class="vehicle-status">STATUS: ACTIVE</div>
             </div>
             <div class="vehicle-card">
-                <div class="vehicle-image">🚘</div>
+                <div class="vehicle-image">
+                    <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80" alt="Toyota Camry">
+                </div>
                 <div class="vehicle-name">Patrol Unit 4</div>
                 <div class="vehicle-type">2018 Grey Toyota Camry</div>
                 <div class="vehicle-specs">Standard patrol configuration</div>
                 <div class="vehicle-status">STATUS: ACTIVE</div>
             </div>
+        </div>
+    </section>
+
+    <section class="report-section">
+        <div class="report-form">
+            <h2>Report Suspicious Activity</h2>
+            <div class="form-group">
+                <label for="reporter-name">Your Name</label>
+                <input type="text" id="reporter-name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="reporter-phone">Contact Number</label>
+                <input type="tel" id="reporter-phone" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="incident-type">Incident Type</label>
+                <select id="incident-type" required>
+                    <option value="">Select incident type...</option>
+                    <option value="suspicious-person">Suspicious Person</option>
+                    <option value="suspicious-vehicle">Suspicious Vehicle</option>
+                    <option value="prowler">Prowler/Trespassing</option>
+                    <option value="vandalism">Vandalism</option>
+                    <option value="disturbance">Disturbance</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="Street address or area" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" placeholder="Provide detailed description of the incident, person(s) involved, vehicle details, etc." required></textarea>
+            </div>
+            <button class="submit-btn" onclick="submitReport()">SUBMIT REPORT</button>
+            <p class="form-note">
+                For emergencies, always call 911 first.<br>
+                This form is monitored by LCNP patrol units for community awareness.
+            </p>
         </div>
     </section>
 
@@ -719,6 +914,37 @@
         setInterval(() => {
             randomAlert();
         }, Math.random() * 10000 + 10000);
+
+        // Report form submission
+        function submitReport() {
+            const name = document.getElementById('reporter-name').value;
+            const phone = document.getElementById('reporter-phone').value;
+            const type = document.getElementById('incident-type').value;
+            const location = document.getElementById('location').value;
+            const description = document.getElementById('description').value;
+
+            if (!name || !phone || !type || !location || !description) {
+                alert('Please fill out all fields before submitting.');
+                return;
+            }
+
+            // Create alert notification
+            const reportAlert = {
+                title: "NEW REPORT SUBMITTED",
+                message: `${type.toUpperCase()} reported at ${location}. Patrol units dispatched.`,
+                icon: "■"
+            };
+            createAlert(reportAlert);
+
+            // Clear form
+            document.getElementById('reporter-name').value = '';
+            document.getElementById('reporter-phone').value = '';
+            document.getElementById('incident-type').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('description').value = '';
+
+            alert('Report submitted successfully. LCNP units have been notified.');
+        }
 
         // Cursor trail effect with green terminal style
         document.addEventListener('mousemove', (e) => {

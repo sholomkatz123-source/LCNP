@@ -18,3 +18,80 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Shmuel “Eagle Eyes” Levine</h3><p class="opacity-70 text-sm mt-2">Lead Patrol Commander</p></div>
+<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Mendy “Silent Hawk” Friedman</h3><p class="opacity-70 text-sm mt-2">Dispatcher</p></div>
+<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Avi “Ghoststep” Klein</h3><p class="opacity-70 text-sm mt-2">Training Captain</p></div>
+<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Yaakov “Beacon” Stein</h3><p class="opacity-70 text-sm mt-2">Community Liaison</p></div>
+<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Rafi “Roadrunner” Gold</h3><p class="opacity-70 text-sm mt-2">Logistics</p></div>
+<div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Moshe “Scribe” Adler</h3><p class="opacity-70 text-sm mt-2">Reports & Data</p></div>
+</div>
+</section>
+
+
+<!-- JOIN -->
+<section id="join" class="relative z-[4] py-28 text-center px-6">
+<h2 class="text-5xl font-extrabold mb-6 reveal">Join the Patrol</h2>
+<p class="opacity-85 mb-8 reveal">Volunteer one night a week or serve as standby. Training and gear provided.</p>
+<a href="#report" class="inline-block px-8 py-4 rounded-xl glass glow hover:brightness-125 reveal">Sign Up / Ask a Question</a>
+</section>
+
+
+<!-- REPORT -->
+<section id="report" class="relative z-[4] py-28 px-6 bg-white/5 backdrop-blur-md border-t border-white/10">
+<h2 class="text-5xl font-extrabold text-center mb-10 reveal">Suspicious Activity Report</h2>
+<form class="max-w-4xl mx-auto grid gap-6 glass p-8 rounded-2xl reveal">
+<div class="grid md:grid-cols-2 gap-4">
+<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Your Name (required)" required />
+<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Phone Number (required)" required />
+</div>
+<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Exact Location or Address (required)" required />
+<div class="grid md:grid-cols-2 gap-4">
+<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Nearest Landmark / Building" />
+<input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Time Seen (approx)" />
+</div>
+<textarea class="p-4 bg-black/30 border border-white/20 rounded-lg" rows="6" placeholder="Describe what you saw: behavior, clothing, direction of travel, sounds, vehicle details, etc."></textarea>
+<div class="grid md:grid-cols-3 gap-3 text-sm">
+<label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Urgent / Immediate Threat</label>
+<label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Vehicle Involved</label>
+<label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Police Already Notified</label>
+</div>
+<button class="p-4 bg-white/10 border border-white/20 rounded-lg text-lg hover:bg-white/20 transition">Submit Report</button>
+</form>
+</section>
+
+
+<footer class="relative z-[4] py-10 text-center text-sm opacity-60">© 2025 LCNP Night Patrol</footer>
+
+
+<!-- STARFIELD GEN + MOTION -->
+<script>
+(function(){
+const sf=document.getElementById('starfield');
+for(let i=0;i<180;i++){const s=document.createElement('span');s.style.top=Math.random()*100+'vh';s.style.left=Math.random()*100+'vw';s.style.animationDelay=(Math.random()*5)+'s';sf.appendChild(s);}
+})();
+</script>
+<!-- LIGHTNING + CAR + HEADLIGHTS ANIMATIONS -->
+<script>
+setInterval(()=>{const L=document.getElementById('lightning');L.style.opacity=Math.random()*0.8;setTimeout(()=>L.style.opacity=0,90)}, 4000+Math.random()*4000);
+setInterval(()=>{document.getElementById('headlights').animate([{transform:'translateX(-20vw)'},{transform:'translateX(130vw)'}],{duration:6500,easing:'ease-in-out'})}, 9000);
+setInterval(()=>{const c=document.getElementById('car');c.animate([{transform:'translateX(-12vw)'},{transform:'translateX(132vw)'}],{duration:16000,easing:'linear'})}, 20000);
+</script>
+<!-- DISPATCH RANDOM MESSAGES -->
+<script>
+const dbox=document.getElementById('dispatch');const dmsg=document.getElementById('dmsg');
+const msgs=['⚠️ Dispatch: Code 42 — unknown movement near Court D','🚨 Patrol: sweep north walkway','⚠️ Report: vehicle circling block twice','🚨 Units: status check-in','⚠️ Noise near Oak & Maple'];
+setInterval(()=>{const m=msgs[Math.floor(Math.random()*msgs.length)];dmsg.textContent=m;dbox.animate([{opacity:0,transform:'translateX(-18px)'},{opacity:1,transform:'translateX(0)'},{opacity:1},{opacity:0,transform:'translateX(-18px)'}],{duration:5200})}, 11000);
+</script>
+<!-- SCROLL REVEAL + HEARTBEAT -->
+<script>
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.style.animation='heartbeat 1.8s ease-in-out';setTimeout(()=>{e.target.style.animation=''},1800);}})},{threshold:.2});
+document.querySelectorAll('.reveal,.glass').forEach(el=>io.observe(el));
+</script>
+<!-- SKYLINE (random buildings) -->
+<div id="skyline"></div>
+<script>
+(function(){const s=document.getElementById('skyline');for(let i=0;i<24;i++){const b=document.createElement('div');b.className='b';b.style.width=(20+Math.random()*40)+'px';b.style.height=(60+Math.random()*100)+'px';s.appendChild(b);} })();
+</script>
+</body>
+</html>

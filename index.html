@@ -973,4 +973,226 @@
                         </svg>
                     </div>
                     <div class="vehicle-name">Patrol Unit 3</div>
-                    <div class="vehicle-type">2008 White Che
+                    <div class="vehicle-type">2008 White Chevy Tahoe</div>
+                    <div class="vehicle-specs">Emergency lighting • Reinforced bumper</div>
+                    <div class="vehicle-status">STATUS: ACTIVE</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="vehicle-image">
+                        <svg viewBox="0 0 24 24" fill="#00f5d4" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                        </svg>
+                    </div>
+                    <div class="vehicle-name">Patrol Unit 4</div>
+                    <div class="vehicle-type">2018 Grey Toyota Camry</div>
+                    <div class="vehicle-specs">Standard patrol configuration</div>
+                    <div class="vehicle-status">STATUS: ACTIVE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPORT PAGE -->
+    <div class="page" id="report">
+        <div class="report-container">
+            <div class="report-form">
+                <h2>Report Suspicious Activity</h2>
+                <div class="form-group">
+                    <label for="reporter-name">Your Name</label>
+                    <input type="text" id="reporter-name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reporter-phone">Contact Number</label>
+                    <input type="tel" id="reporter-phone" placeholder="Enter phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="incident-type">Incident Type</label>
+                    <select id="incident-type" required>
+                        <option value="">Select incident type...</option>
+                        <option value="suspicious-person">Suspicious Person</option>
+                        <option value="suspicious-vehicle">Suspicious Vehicle</option>
+                        <option value="prowler">Prowler/Trespassing</option>
+                        <option value="vandalism">Vandalism</option>
+                        <option value="disturbance">Disturbance</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="Street address or area" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" placeholder="Provide detailed description of the incident, person(s) involved, vehicle details, etc." required></textarea>
+                </div>
+                <button class="submit-btn" onclick="submitReport()">SUBMIT REPORT</button>
+                <p class="form-note">
+                    For emergencies, always call 911 first.<br>
+                    This form is monitored by LCNP patrol units for community awareness.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>◆ LCNP © 2024 | PROTECTING LAKEWOOD COMMONS AFTER DARK ◆</p>
+    </footer>
+
+    <script>
+        // Navigation
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinksContainer = document.getElementById('navLinks');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        function navigateTo(pageName) {
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageName).classList.add('active');
+            
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`[data-page="${pageName}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            if (window.innerWidth <= 768) {
+                navLinksContainer.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageName = link.getAttribute('data-page');
+                navigateTo(pageName);
+            });
+        });
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', (!expanded).toString());
+                navLinksContainer.classList.toggle('open', !expanded);
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinksContainer.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Set home as active on load
+        navLinks[0].classList.add('active');
+
+        // Alert system with smaller notifications
+        const alerts = [
+            { title: "SUSPICIOUS VEHICLE", message: "Black sedan circling Oak Street. Proceed with caution.", icon: "■" },
+            { title: "BIKER SPOTTED", message: "Individual on bicycle near the shul. Check activity.", icon: "■" },
+            { title: "UNKNOWN PERSON", message: "Unidentified individual near towers. Investigate.", icon: "■" },
+            { title: "DISTURBANCE", message: "Loud noises near House #210. Unit 57 respond.", icon: "■" },
+            { title: "SUSPICIOUS ACTIVITY", message: "Person checking parked cars on Funston.", icon: "■" },
+            { title: "COMMAND STATUS", message: "Command currently empty. Units available?", icon: "■" },
+            { title: "VANDALISM ALERT", message: "Graffiti spotted on playground. Document.", icon: "■" },
+            { title: "PROWLER SIGHTING", message: "Figure near garages. Converge on location.", icon: "■" },
+            { title: "VEHICLE ALERT", message: "Unknown van with engine running. Monitor.", icon: "■" },
+            { title: "LATE JOGGER", message: "Late night jogger reported. Verify identity.", icon: "■" }
+        ];
+
+        function createAlert(alertData) {
+            const container = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = 'alert';
+            
+            const now = new Date();
+            const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            alert.innerHTML = `
+                <div class="alert-header">
+                    <span class="alert-icon">${alertData.icon}</span>
+                    <span class="alert-type">ALERT</span>
+                </div>
+                <div class="alert-title">${alertData.title}</div>
+                <div class="alert-message">${alertData.message}</div>
+                <div class="alert-time">${time}</div>
+            `;
+            
+            container.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.style.animation = 'slideOutRight 0.4s ease-out forwards';
+                setTimeout(() => alert.remove(), 400);
+            }, 6000);
+        }
+
+        function randomAlert() {
+            const randomIndex = Math.floor(Math.random() * alerts.length);
+            createAlert(alerts[randomIndex]);
+        }
+
+        setTimeout(randomAlert, 3000);
+        setInterval(() => {
+            randomAlert();
+        }, Math.random() * 8000 + 12000);
+
+        // Report form submission
+        function submitReport() {
+            const name = document.getElementById('reporter-name').value;
+            const phone = document.getElementById('reporter-phone').value;
+            const type = document.getElementById('incident-type').value;
+            const location = document.getElementById('location').value;
+            const description = document.getElementById('description').value;
+
+            if (!name || !phone || !type || !location || !description) {
+                alert('Please fill out all fields before submitting.');
+                return;
+            }
+
+            const reportAlert = {
+                title: "REPORT SUBMITTED",
+                message: `${type.toUpperCase()} at ${location}. Units dispatched.`,
+                icon: "■"
+            };
+            createAlert(reportAlert);
+
+            document.getElementById('reporter-name').value = '';
+            document.getElementById('reporter-phone').value = '';
+            document.getElementById('incident-type').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('description').value = '';
+
+            alert('Report submitted successfully. LCNP units have been notified.');
+        }
+
+        // Minimal cursor trail effect
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.9) {
+                const trail = document.createElement('div');
+                trail.style.cssText = `
+                    position: fixed;
+                    width: 2px;
+                    height: 2px;
+                    background: #00f5d4;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    pointer-events: none;
+                    z-index: 999;
+                    box-shadow: 0 0 8px #00f5d4;
+                    border-radius: 50%;
+                `;
+                document.body.appendChild(trail);
+
+                setTimeout(() => {
+                    trail.style.transition = 'all 0.4s';
+                    trail.style.opacity = '0';
+                    trail.style.transform = 'scale(1.5)';
+                }, 10);
+
+                setTimeout(() => trail.remove(), 400);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,239 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LCNP – Lakewood Commons Night Patrol</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-  :root{--cyan:#00eaff;--deep:#08111d;--ink:#0b1422;--glass:rgba(255,255,255,.06)}
-  html,body{margin:0;color:#fff;overflow-x:hidden;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto;}
-  body{margin:0;background:transparent;background-size:cover;background-position:center;color:#fff;overflow-x:hidden;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto}
-  /* SKYLINE (CSS-only) */
-  #skyline{position:fixed;bottom:0;left:0;right:0;height:160px;z-index:1;display:flex;gap:10px;opacity:.5}
-  #skyline .b{flex:0 0 auto;background:linear-gradient(#020409, #050814 40%, #070a12);
-  /* Enhanced street silhouettes */
-  --bench-pos: 30%; /* closer */
-  --lamp-glow: 0 0 60px rgba(255, 240, 180, 0.8), 0 0 120px rgba(255, 200, 100, 0.55);(#0b1726,#070e19);border:1px solid rgba(255,255,255,.06);position:relative}
-  #skyline .b:before{content:"";position:absolute;inset:6px;background:repeating-linear-gradient( to bottom, rgba(255,255,255,.14) 0 2px, transparent 2px 10px);opacity:.15;mix-blend:screen}
-  /* STARFIELD + MOON (CSS-only) */
-  /* STARFIELD layer (moved behind background image) */
-#starfield span{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.8;animation:twinkle 3s ease-in-out infinite}
-  @keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
-  .moon{position:fixed;top:48px;right:64px;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #fff, #e8f1ff 40%, #a8c0ff 62%, transparent 70%);box-shadow:0 0 40px rgba(180,210,255,.35);z-index:-2}
-  /* FOG */
-  .fog{position:fixed;inset:0;pointer-events:none;filter:blur(120px);mix-blend:screen;z-index:2}
-  .fog.f1{background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.12), transparent 60%);animation:fogMove1 50s linear infinite}
-  .fog.f2{background:radial-gradient(circle at 70% 40%, rgba(255,255,255,.10), transparent 60%);animation:fogMove2 80s linear infinite}
-  .fog.f3{background:radial-gradient(circle at 50% 60%, rgba(255,255,255,.08), transparent 60%);animation:fogMove3 120s linear infinite}
-  @keyframes fogMove1{to{transform:translateX(-1200px)}}
-  @keyframes fogMove2{to{transform:translateX(900px)}}
-  @keyframes fogMove3{to{transform:translateX(-600px)}}
-  /* LIGHTNING */
-  #lightning{position:fixed;inset:0;background:#fff;mix-blend:screen;opacity:0;transition:.12s;z-index:5}
-  /* CAR HEADLIGHTS */
-  #headlights{position:fixed;bottom:78px;left:-20vw;width:12vw;height:10px;background:radial-gradient(circle, rgba(255,255,220,.9), transparent 70%);filter:blur(1px);opacity:.4;z-index:3}
-  /* PATROL CAR (CSS-only) */
-  #car{position:fixed;bottom:62px;left:0;width:140px;height:44px;z-index:3;opacity:.75}
-  #car:before{content:"";position:absolute;left:8px;right:8px;bottom:0;height:28px;background:#0c1320;border-radius:10px}
-  #car:after{content:"";position:absolute;left:42px;bottom:24px;width:78px;height:18px;background:#0c1320;border-radius:10px 10px 3px 3px}
-  #car .bar{position:absolute;left:62px;bottom:38px;width:18px;height:6px;background:linear-gradient(90deg,#0ff,#06f);box-shadow:0 0 16px rgba(0,200,255,.9)}
-  #car .beam{position:absolute;bottom:3px;width:0;height:0;border-right:240px solid rgba(255,255,180,.09);border-top:28px solid transparent;border-bottom:28px solid transparent;filter:blur(1px)}
-  #car .beam.left{left:-6px}
-  #car .beam.right{right:-6px;transform:scaleX(-1)}
-  /* HERO */
-  .hero{position:relative;z-index:4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 1.25rem}
-  .hero h1{letter-spacing:.18em}
-  .glow{box-shadow:0 0 60px rgba(0,234,255,.45), inset 0 0 60px rgba(0,234,255,.18)}
-  .pulse-slow{animation:pulseSlow 3s ease-in-out infinite}
-  @keyframes pulseSlow{0%,100%{opacity:.85}50%{opacity:1}}
-  /* BADGES (CSS-only) */
-  .badge3d{position:relative;overflow:hidden;cursor:pointer;border-radius:12% 12% 32% 32% / 18% 18% 50% 50%;transform-style:preserve-3d;animation:spin 14s linear infinite}
-  @keyframes spin{to{transform:rotateY(360deg)}}
-  .badge3d .shine{position:absolute;inset:-40%;background:linear-gradient(110deg,transparent 45%,rgba(255,255,255,.65) 50%,transparent 55%);transform:translateX(-120%) rotate(10deg)}
-  .badge3d:hover .shine{animation:shine 2.2s ease-in-out}
-  @keyframes shine{to{transform:translateX(120%) rotate(10deg)}}
-  .badge--gold{background:linear-gradient(160deg,#ffd36b 0%,#c79a2d 35%,#8c6a16 60%,#ffe7a8 100%);box-shadow:0 10px 28px rgba(0,0,0,.45), inset 0 0 22px rgba(255,255,255,.35), inset 0 -12px 24px rgba(139,98,20,.55)}
-  .badge--chrome{background:linear-gradient(160deg,#dfe6ef 0%,#9aa6b3 35%,#5b6370 60%,#f3f6fa 100%);box-shadow:0 10px 28px rgba(0,0,0,.45), inset 0 0 22px rgba(255,255,255,.35), inset 0 -12px 24px rgba(65,71,82,.55)}
-  .badge-title{position:absolute;top:22%;width:100%;text-align:center;font-weight:900;letter-spacing:.15em;text-shadow:0 0 10px rgba(0,0,0,.6)}
-  .badge-sub{position:absolute;bottom:12%;width:100%;font-size:10px;text-align:center;opacity:.95;text-shadow:0 0 6px rgba(0,0,0,.6)}
-  .badge-eagle:before{content:"🦅";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:26px;filter:drop-shadow(0 0 6px rgba(255,255,255,.4))}
-  /* GLASS + REVEAL */
-  .glass{background:var(--glass);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);box-shadow:0 10px 40px rgba(0,0,0,.45)}
-  .reveal{opacity:0;transform:translateY(28px);transition:all .9s ease}
-  .reveal.in{opacity:1;transform:none}
-  /* DISPATCH ALERT */
-  #dispatch{position:fixed;top:18px;left:18px;z-index:8;padding:.9rem 1.1rem;border-radius:14px;background:rgba(120,0,0,.8);border:1px solid rgba(255,80,80,.7);box-shadow:0 0 20px rgba(255,0,0,.55);font-weight:800;display:flex;gap:.5rem;align-items:center;opacity:0;pointer-events:none}
-  #dispatch .emoji{filter:drop-shadow(0 0 6px rgba(255,0,0,1))}
-  /* HEARTBEAT SECTIONS */
-  @keyframes heartbeat{0%{transform:scale(1)}20%{transform:scale(1.045)}40%{transform:scale(1)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
-  /* STREET BACKGROUND FOR SECTIONS */
-  section:not(.hero){
-    background:
-      linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7)),
-      repeating-linear-gradient(
-        to bottom,
-        #0a0f16 0px,
-        #0a0f16 40px,
-        #0c121b 40px,
-        #0c121b 80px
-      );
-    position:relative;
-  }
-  section:not(.hero)::before{
-    content:"";
-    position:absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    height:180px;
-    background:
-      linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0)),
-      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200"><rect x="50" y="40" width="10" height="160" fill="%23ccc" opacity="0.3"/><circle cx="55" cy="40" r="12" fill="%23ffd46b" opacity="0.35"/><rect x="300" y="70" width="160" height="20" rx="8" ry="8" fill="%23fff" opacity="0.08"/></svg>') repeat-x bottom center;
-    background-size:800px 200px;
-    pointer-events:none;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCNP - Lakewood Commons Night Patrol</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(20,20,50,0.9) 0%, rgba(10,14,39,0) 100%);
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff;
+            letter-spacing: 0.5rem;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
+            50% { text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff, 0 0 90px #00ffff; }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 10;
+            padding: 4rem 2rem;
+            text-align: center;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-text {
+            font-size: 1.3rem;
+            max-width: 800px;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            color: #b0b0ff;
+        }
+
+        .cta-button {
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(0,255,255,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(0,255,255,0.8);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .features {
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(20, 30, 70, 0.6);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0,255,255,0.4);
+            border-color: #ff00ff;
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px #00ffff);
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #00ffff;
+        }
+
+        .feature-card p {
+            color: #b0b0ff;
+            line-height: 1.6;
+        }
+
+        .moonlight {
+            position: fixed;
+            top: 10%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(200,200,255,0.2) 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 100px rgba(255,255,255,0.5);
+            z-index: 2;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(20,20,50,0.8);
+            margin-top: 4rem;
+            border-top: 2px solid #00ffff;
+        }
+
+        footer p {
+            color: #b0b0ff;
+        }
+    </style>
 </head>
-<body class="relative">
-<style>
-body:before{content:"";position:fixed;inset:0;background:url('lcnpbanner2.png') center/cover no-repeat;opacity:1;z-index:-1;}}
-</style>
-  <!-- SKY DECOR -->
-  <!-- STARFIELD (now behind background image) -->
-<div id="starfield" class="fixed inset-0 z-[-2]"></div></div>
-  <div class="moon"></div>
-  <div class="fog f1"></div><div class="fog f2"></div><div class="fog f3"></div>
-  <div id="lightning"></div>
-  <div id="headlights"></div>
-  <div id="car"><div class="bar"></div><div class="beam left"></div><div class="beam right"></div></div>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="moonlight"></div>
 
-  <!-- HERO -->
-  <header id="top" class="hero">
-    <div class="flex items-center justify-center gap-6 mb-4 z-10">
-      
-        <div class="badge-sub">Lakewood Commons Night Patrol</div>
-        <span class="shine"></span>
-      </div>
-      <h1 class="text-[140px] md:text-[220px] font-extrabold tracking-[0.22em] pulse-slow relative z-20"
-          style="text-shadow:0 0 45px rgba(0,234,255,1)">LCNP</h1>
-      
-        <div class="badge-sub">Lakewood Commons Night Patrol</div>
-        <span class="shine"></span>
-      </div>
-    </div>
-    <p class="text-lg opacity-85 max-w-3xl reveal">Nightly community safety • Eyes on the block • Rapid response • Quiet professionalism</p>
-    <div class="mt-8 inline-block px-8 py-4 rounded-xl glow glass reveal">Report suspicious activity • Volunteer for a shift • Stay informed</div>
-  </header>
+    <header>
+        <div class="logo">LCNP</div>
+        <div class="tagline">Lakewood Commons Night Patrol</div>
+    </header>
 
-  <!-- FLOATING SIDEBAR NAV -->
-  <nav class="fixed top-1/2 -translate-y-1/2 left-4 space-y-3 z-[7]">
-    <a href="#mission" class="block px-3 py-2 rounded-lg glass hover:brightness-125">Mission</a>
-    <a href="#ops" class="block px-3 py-2 rounded-lg glass hover:brightness-125">Night Ops</a>
-    <a href="#team" class="block px-3 py-2 rounded-lg glass hover:brightness-125">Team</a>
-    <a href="#join" class="block px-3 py-2 rounded-lg glass hover:brightness-125">Join</a>
-    <a href="#report" class="block px-3 py-2 rounded-lg glass hover:brightness-125">Report</a>
-  </nav>
+    <section class="hero">
+        <h2>Protecting Our Neighborhood After Dark</h2>
+        <p class="hero-text">
+            We are a dedicated group of teens committed to keeping Lakewood Commons safe. Every night, we patrol the streets, watch for suspicious activity, and ensure our community remains secure. Together, we're the eyes and ears of the neighborhood when the sun goes down.
+        </p>
+        <button class="cta-button" onclick="alert('Join our patrol! Contact us to learn more about becoming part of LCNP.')">JOIN THE PATROL</button>
+    </section>
 
-  <!-- DISPATCH ALERT -->
-  <div id="dispatch"><span class="emoji">🚨</span><span id="dmsg">Dispatch online.</span></div>
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🌙</div>
+            <h3>Nightly Patrols</h3>
+            <p>We walk the streets every evening, maintaining a visible presence to deter crime and monitor for any unusual activity.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">👁️</div>
+            <h3>Vigilant Watch</h3>
+            <p>Our trained eyes spot suspicious behavior, unfamiliar faces, and potential safety concerns before they become problems.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <h3>Community First</h3>
+            <p>We're neighbors protecting neighbors. Building relationships and trust within Lakewood Commons is our top priority.</p>
+        </div>
+    </section>
 
-  <!-- MISSION -->
-  <section id="mission" class="relative z-[4] py-28 px-6">
-    <h2 class="text-5xl font-extrabold text-center mb-8 reveal">Our Mission</h2>
-    <p class="max-w-4xl mx-auto text-center text-lg opacity-85 leading-relaxed reveal mb-4">LCNP keeps Lakewood Commons calm, visible, and protected every night. Trained volunteers patrol on a rotating schedule, logging observations, and coordinating with local authorities when needed.</p>
-    <p class="max-w-4xl mx-auto text-center text-lg opacity-85 leading-relaxed reveal mb-4">We deter by presence, assist respectfully, and respond quickly. Our approach is quiet and professional—built on trust, discretion, and service.</p>
-    <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto mt-10">
-      <div class="glass p-6 rounded-2xl reveal"><div class="text-3xl mb-2">🗺️</div><h3 class="font-bold mb-1">Patrol Sectors</h3><p class="opacity-80 text-sm">Routes cover courts, walk paths, and entries with timed sweeps.</p></div>
-      <div class="glass p-6 rounded-2xl reveal"><div class="text-3xl mb-2">📡</div><h3 class="font-bold mb-1">Comms Discipline</h3><p class="opacity-80 text-sm">Low-volume radios, code responses, and check-ins on schedule.</p></div>
-      <div class="glass p-6 rounded-2xl reveal"><div class="text-3xl mb-2">🚨</div><h3 class="font-bold mb-1">Rapid Response</h3><p class="opacity-80 text-sm">Escalation protocols, recording, and clear handoffs if required.</p></div>
-      <div class="glass p-6 rounded-2xl reveal"><div class="text-3xl mb-2">🤝</div><h3 class="font-bold mb-1">Community First</h3><p class="opacity-80 text-sm">We support families, check on elders, and keep our streets calm.</p></div>
-    </div>
-  </section>
+    <footer>
+        <p>&copy; 2024 Lakewood Commons Night Patrol | Keeping Our Streets Safe</p>
+    </footer>
 
-  <!-- NIGHT OPS BRIEFING -->
-  <section id="ops" class="relative z-[4] py-28 px-6 bg-white/5 backdrop-blur-md border-t border-b border-white/10">
-    <h2 class="text-5xl font-extrabold text-center mb-10 reveal">Night Ops Briefing</h2>
-    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <div class="glass p-8 rounded-2xl reveal"><div class="text-4xl mb-3">🔦</div><h3 class="text-xl font-bold mb-2">Sector Coverage</h3><p class="opacity-80">North walks, courts A–F, lot perimeters, and late-hour entries.</p></div>
-      <div class="glass p-8 rounded-2xl reveal"><div class="text-4xl mb-3">📝</div><h3 class="text-xl font-bold mb-2">Shift Logs</h3><p class="opacity-80">Every sweep recorded with time, location, and outcome.</p></div>
-      <div class="glass p-8 rounded-2xl reveal"><div class="text-4xl mb-3">🛡️</div><h3 class="text-xl font-bold mb-2">Safety Protocols</h3><p class="opacity-80">Visibility, de‑escalation, and immediate 911 for emergencies.</p></div>
-    </div>
-  </section>
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
 
-  <!-- TEAM -->
-  <section id="team" class="relative z-[4] py-28 px-6">
-    <h2 class="text-5xl font-extrabold text-center mb-12 reveal">Meet the Team</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Shmuel “Eagle Eyes” Levine</h3><p class="opacity-70 text-sm mt-2">Lead Patrol Commander</p></div>
-      <div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Mendy “Silent Hawk” Friedman</h3><p class="opacity-70 text-sm mt-2">Dispatcher</p></div>
-      <div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Avi “Ghoststep” Klein</h3><p class="opacity-70 text-sm mt-2">Training Captain</p></div>
-      <div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Yaakov “Beacon” Stein</h3><p class="opacity-70 text-sm mt-2">Community Liaison</p></div>
-      <div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Rafi “Roadrunner” Gold</h3><p class="opacity-70 text-sm mt-2">Logistics</p></div>
-      <div class="glass p-8 rounded-2xl text-center reveal"><div class="mx-auto mb-4 w-24 h-24 rounded-full bg-white/10"></div><h3 class="font-bold">Moshe “Scribe” Adler</h3><p class="opacity-70 text-sm mt-2">Reports & Data</p></div>
-    </div>
-  </section>
+        // Cursor trail effect
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.style.position = 'fixed';
+            trail.style.width = '5px';
+            trail.style.height = '5px';
+            trail.style.borderRadius = '50%';
+            trail.style.background = '#00ffff';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            trail.style.pointerEvents = 'none';
+            trail.style.zIndex = '999';
+            trail.style.boxShadow = '0 0 10px #00ffff';
+            document.body.appendChild(trail);
 
-  <!-- JOIN -->
-  <section id="join" class="relative z-[4] py-28 text-center px-6">
-    <h2 class="text-5xl font-extrabold mb-6 reveal">Join the Patrol</h2>
-    <p class="opacity-85 mb-8 reveal">Volunteer one night a week or serve as standby. Training and gear provided.</p>
-    <a href="#report" class="inline-block px-8 py-4 rounded-xl glass glow hover:brightness-125 reveal">Sign Up / Ask a Question</a>
-  </section>
+            setTimeout(() => {
+                trail.style.transition = 'all 0.5s';
+                trail.style.opacity = '0';
+                trail.style.transform = 'scale(2)';
+            }, 10);
 
-  <!-- REPORT -->
-  <section id="report" class="relative z-[4] py-28 px-6 bg-white/5 backdrop-blur-md border-t border-white/10">
-    <h2 class="text-5xl font-extrabold text-center mb-10 reveal">Suspicious Activity Report</h2>
-    <form class="max-w-4xl mx-auto grid gap-6 glass p-8 rounded-2xl reveal">
-      <div class="grid md:grid-cols-2 gap-4">
-        <input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Your Name (required)" required />
-        <input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Phone Number (required)" required />
-      </div>
-      <input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Exact Location or Address (required)" required />
-      <div class="grid md:grid-cols-2 gap-4">
-        <input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Nearest Landmark / Building" />
-        <input class="p-4 bg-black/30 border border-white/20 rounded-lg" placeholder="Time Seen (approx)" />
-      </div>
-      <textarea class="p-4 bg-black/30 border border-white/20 rounded-lg" rows="6" placeholder="Describe what you saw: behavior, clothing, direction of travel, sounds, vehicle details, etc."></textarea>
-      <div class="grid md:grid-cols-3 gap-3 text-sm">
-        <label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Urgent / Immediate Threat</label>
-        <label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Vehicle Involved</label>
-        <label class="flex items-center gap-2"><input type="checkbox" class="accent-white"> Police Already Notified</label>
-      </div>
-      <button class="p-4 bg-white/10 border border-white/20 rounded-lg text-lg hover:bg-white/20 transition">Submit Report</button>
-    </form>
-  </section>
-
-  <footer class="relative z-[4] py-10 text-center text-sm opacity-60">© 2025 LCNP Night Patrol</footer>
-
-  <!-- STARFIELD GEN + MOTION -->
-  <script>
-    (function(){
-      const sf=document.getElementById('starfield');
-      for(let i=0;i<180;i++){const s=document.createElement('span');s.style.top=Math.random()*100+'vh';s.style.left=Math.random()*100+'vw';s.style.animationDelay=(Math.random()*5)+'s';sf.appendChild(s);} 
-    })();
-  </script>
-  <!-- LIGHTNING + CAR + HEADLIGHTS ANIMATIONS -->
-  <script>
-    setInterval(()=>{const L=document.getElementById('lightning');L.style.opacity=Math.random()*0.8;setTimeout(()=>L.style.opacity=0,90)}, 4000+Math.random()*4000);
-    setInterval(()=>{document.getElementById('headlights').animate([{transform:'translateX(-20vw)'},{transform:'translateX(130vw)'}],{duration:6500,easing:'ease-in-out'})}, 9000);
-    setInterval(()=>{const c=document.getElementById('car');c.animate([{transform:'translateX(-12vw)'},{transform:'translateX(132vw)'}],{duration:16000,easing:'linear'})}, 20000);
-  </script>
-  <!-- DISPATCH RANDOM MESSAGES -->
-  <script>
-    const dbox=document.getElementById('dispatch');const dmsg=document.getElementById('dmsg');
-    const msgs=['⚠️ Dispatch: Code 42 — unknown movement near Court D','🚨 Patrol: sweep north walkway','⚠️ Report: vehicle circling block twice','🚨 Units: status check-in','⚠️ Noise near Oak & Maple'];
-    setInterval(()=>{const m=msgs[Math.floor(Math.random()*msgs.length)];dmsg.textContent=m;dbox.animate([{opacity:0,transform:'translateX(-18px)'},{opacity:1,transform:'translateX(0)'},{opacity:1},{opacity:0,transform:'translateX(-18px)'}],{duration:5200})}, 11000);
-  </script>
-  <!-- SCROLL REVEAL + HEARTBEAT -->
-  <script>
-    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.style.animation='heartbeat 1.8s ease-in-out';setTimeout(()=>{e.target.style.animation=''},1800);}})},{threshold:.2});
-    document.querySelectorAll('.reveal,.glass').forEach(el=>io.observe(el));
-  </script>
-  <!-- SKYLINE (random buildings) -->
-  <div id="skyline"></div>
-  <script>
-    (function(){const s=document.getElementById('skyline');for(let i=0;i<24;i++){const b=document.createElement('div');b.className='b';b.style.width=(20+Math.random()*40)+'px';b.style.height=(60+Math.random()*100)+'px';s.appendChild(b);} })();
-  </script>
+            setTimeout(() => {
+                trail.remove();
+            }, 500);
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+
+body {
+  margin: 0;
+  background: #03060d;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero-banner {
+  width: 100%;
+  display: block;
+}
+
+.badge-corner {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  text-align: center;
+}
+
+.badge {
+  width: 90px;
+  filter: drop-shadow(0 0 8px cyan);
+}
+
+.badge-corner span {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  letter-spacing: 2px;
+}

@@ -1,34 +1,20 @@
-
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-@keyframes fade-up {0%{opacity:0;transform:translateY(40px);}100%{opacity:1;transform:none;}}
-.reveal{opacity:0;transform:translateY(30px);transition:.8s;}
-.reveal.in-view{opacity:1;transform:none;}
-</style>
-<script>
-const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');}});},{threshold:0.3});
-document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.reveal').forEach(el=>io.observe(el));});
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCNP – Lakewood Commons Night Patrol</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-black text-white">
+<body>
 
-<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 bg-black/40 backdrop-blur-md border-b border-white/10">
-  <div class="font-extrabold tracking-widest">LCNP</div>
-  <div class="hidden md:flex gap-6 text-sm opacity-90">
-    <a href="index.html">Home</a>
-    <a href="mission.html">Mission</a>
-    <a href="team.html">Team</a>
-    <a href="join.html">Join</a>
-    <a href="report.html">Report</a>
+<div class="hero">
+  <img src="assets/hero-banner.png" class="hero-banner" alt="LCNP Hero Banner">
+  <div class="badge-corner">
+    <img src="assets/badge.png" class="badge" alt="LCNP Patrol Badge">
+    <span>LCNP PATROL</span>
   </div>
-</nav>
-
-<div class="pt-32 text-center">
-  <h1 class="text-6xl font-extrabold reveal">LCNP</h1>
-  <p class="mt-4 text-lg opacity-80 reveal">Lakewood Commons Night Patrol</p>
-  <img src="tahoe.png" class="mx-auto mt-12 w-2/3 reveal"/>
 </div>
-</body></html>
+
+</body>
+</html>

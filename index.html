@@ -8,7 +8,7 @@
 <style>
   :root{--cyan:#00eaff;--deep:#08111d;--ink:#0b1422;--glass:rgba(255,255,255,.06)}
   html,body{margin:0;color:#fff;overflow-x:hidden;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto;}
-  body{margin:0;background:url('lcnp-bg.png') top center/cover no-repeat, radial-gradient(1200px 600px at 50% -10%, #0a1a2e 0%, #050b14 40%, #02060b 100%);background-size:cover;background-position:center;color:#fff;overflow-x:hidden;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto}
+  body{margin:0;background:transparent;background-size:cover;background-position:center;color:#fff;overflow-x:hidden;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto}
   /* SKYLINE (CSS-only) */
   #skyline{position:fixed;bottom:0;left:0;right:0;height:160px;z-index:1;display:flex;gap:10px;opacity:.5}
   #skyline .b{flex:0 0 auto;background:linear-gradient(#020409, #050814 40%, #070a12);
@@ -20,7 +20,7 @@
   /* STARFIELD layer (moved behind background image) */
 #starfield span{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.8;animation:twinkle 3s ease-in-out infinite}
   @keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
-  .moon{position:fixed;top:48px;right:64px;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #fff, #e8f1ff 40%, #a8c0ff 62%, transparent 70%);box-shadow:0 0 40px rgba(180,210,255,.35);z-index:2}
+  .moon{position:fixed;top:48px;right:64px;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #fff, #e8f1ff 40%, #a8c0ff 62%, transparent 70%);box-shadow:0 0 40px rgba(180,210,255,.35);z-index:-2}
   /* FOG */
   .fog{position:fixed;inset:0;pointer-events:none;filter:blur(120px);mix-blend:screen;z-index:2}
   .fog.f1{background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.12), transparent 60%);animation:fogMove1 50s linear infinite}
